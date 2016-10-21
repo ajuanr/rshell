@@ -9,6 +9,21 @@
 #ifndef Cmd_hpp
 #define Cmd_hpp
 
-#include <stdio.h>
+/****** System Headers ******/
+#include <string>
+#include <vector>
+
+class Cmd {
+public:
+    Cmd();
+    Cmd(std::string, std::vector<std::string> = std::vector<std::string>() );
+    virtual void exec();
+    virtual std::string getCmd() const {return cmd;};
+    virtual std::vector<std::string> getFlags() const {return flags;};
+    
+private:
+    std::string cmd;
+    std::vector<std::string> flags;
+};
 
 #endif /* Cmd_hpp */

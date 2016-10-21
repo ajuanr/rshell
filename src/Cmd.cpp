@@ -6,4 +6,11 @@
 //  Copyright © 2016 Juan. All rights reserved.
 //
 
-#include "Cmd.hpp"
+#include "../include/Cmd.hpp"
+
+using namespace std;
+
+Cmd::Cmd(string s, vector<string> f)
+:cmd(s), flags(f)
+{
+}
