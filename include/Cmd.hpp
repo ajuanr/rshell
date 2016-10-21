@@ -9,11 +9,14 @@
 #ifndef Cmd_hpp
 #define Cmd_hpp
 
-/****** System Headers ******/
+/****** System Libraries ******/
 #include <string>
 #include <vector>
 
-class Cmd {
+/******* User Libraries ******/
+#include "../include/Command.hpp"
+
+class Cmd: public Command {
 public:
     Cmd();
     Cmd(std::string, std::vector<std::string> = std::vector<std::string>() );
