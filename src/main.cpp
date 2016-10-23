@@ -9,8 +9,21 @@
 #include <iostream>
 
 #include "../include/Command.hpp"
+#include "../include/Cmd.hpp"
+#include "../include/Connector.hpp"
+
+using namespace std;
 
 int main(int argc, const char * argv[]) {
-    std::cout << "Hello, World!\n";
+    Command *a = new Cmd("ls");
+    Command *b = new Cmd("echo");
+    Command *c = new Cmd("cat");
+    
+    Connector* s = new Connector(a,b);
+    Command *d = new Semi(s);
+    
+    d->exec();
+    cout << endl;
+    
     return 0;
 }

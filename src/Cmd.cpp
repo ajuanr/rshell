@@ -21,5 +21,5 @@ Cmd::Cmd(string s, vector<string> f)
 }
 
 void Cmd::exec() {
-    cout << "printing " + cmd << endl;
+    cout << cmd << " ";
 }
