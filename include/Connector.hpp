@@ -14,17 +14,13 @@
 
 class Connector {
 public:
-    Connector(Command*, Command*);
+    Connector(Command*, Command* c=0);
     Command* getLeft() {return left;}
     Command* getRight() {return right;}
-    
-    
 private:
     Command *left;
     Command *right;
 };
-
-
 
 //
 //class Or: public Command {
@@ -48,11 +44,9 @@ private:
 class Semi: public Command {
 public:
     Semi(Connector* con):c(con) {};
-    virtual void exec() { c->getLeft()->exec(); c->getRight->exec();};
+    virtual void exec(); 
 private:
     Connector *c;
-    Command *left;
-    Command *right;
 };
 
 #endif /* Connectors_hpp */

@@ -19,9 +19,9 @@ int main(int argc, const char * argv[]) {
     Command *b = new Cmd("echo");
     Command *c = new Cmd("cat");
     
-    Connector* s = new Connector(a,b);
+    Connector* s = new Connector(a);
     Command *d = new Semi(s);
-    
+    c->exec();
     d->exec();
     cout << endl;
     

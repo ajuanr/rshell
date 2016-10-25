@@ -8,8 +8,14 @@
 
 #include "../include/Connector.hpp"
 
-Connector::Connector(Command* l, Command* r):left(l), right(r) {
-    
+// Connector Constructor
+Connector::Connector(Command* l, Command* r):left(l), right(r) { }
+
+void Semi::exec() {
+    c->getLeft()->exec();
+    if (c->getRight()) {
+        c->getRight()->exec();
+    }
 }
 
 //Semi::Semi(Command* l, Command* r):left(l), right(r) { }
