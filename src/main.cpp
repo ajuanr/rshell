@@ -17,13 +17,14 @@ using namespace std;
 int main(int argc, const char * argv[]) {
     Command *a = new Cmd("ls");
     Command *b = new Cmd("echo");
-    Command *c = new Cmd("cat");
-    
-    Connector* s = new Connector(a);
+    Command *c = new Cmd("pwd");
+   
+//    c->exec();
+    Connector* s = new Connector(c);
     Command *d = new Semi(s);
-    c->exec();
+//    c->exec();
     d->exec();
-    cout << endl;
+//    cout << endl;
     
     return 0;
 }

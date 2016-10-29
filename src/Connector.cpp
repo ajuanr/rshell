@@ -18,4 +18,6 @@ void Semi::exec() {
     }
 }
 
-//Semi::Semi(Command* l, Command* r):left(l), right(r) { }
+void Or::exec() {
+    
+}

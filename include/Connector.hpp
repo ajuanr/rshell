@@ -23,15 +23,15 @@ private:
 };
 
 //
-//class Or: public Command {
-//public:
-//    Or();
-//    virtual void exec() { left->exec(); right->exec();};
-//private:
-//    Command *left;
-//    Command *right;
-//};
-//
+class Or: public Command {
+public:
+    Or();
+    virtual void exec();
+private:
+    Command *left;
+    Command *right;
+};
+
 //class And: public Command {
 //public:
 //    And();

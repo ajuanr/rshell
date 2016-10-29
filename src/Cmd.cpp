@@ -7,8 +7,10 @@
 //
 
 /***** System Libraries *****/
-#include<iostream>
-
+#include <iostream>
+#include <string>
+#include <stdexcept>
+#include <stdio.h>
 
 /***** User Libraries *****/
 #include "../include/Cmd.hpp"
@@ -21,5 +23,24 @@ Cmd::Cmd(string s, vector<string> f)
 }
 
 void Cmd::exec() {
-    cout << cmd << " ";
+    cout << "Running: " + cmd << endl;
+//    std::string exec(const char* cmd) {
+        //std::cout << "You input: " << cmd << std::endl;
+        char buffer[128];
+        std::string result = "";
+    FILE* pipe = popen(cmd.c_str(), "r");
+        if (!pipe) throw std::runtime_error("popen() failed!");
+        try {
+            while (!feof(pipe)) {
+                if (fgets(buffer, 128, pipe) != NULL)
+                    result += buffer;
+            }
+        } catch (...) {
+            pclose(pipe);
+            throw;
+        }
+        pclose(pipe);
+//        return result;
+        cout << result << endl;
+//    }
 }
