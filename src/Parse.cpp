@@ -17,11 +17,13 @@ Parse::Parse(string s) {
 
 vector<Command*> Parse::parse(string s) {
     vector<Command*> ret;
-    
-    for(string::const_iterator i = s.begin(); i != s.end(); ++i) {
+    string::const_iterator beg=s.begin(), end = s.end();
+    while (beg < end) {
         //ignore empty white space at the beginning
 //        i = find_if(s.begin()), s.end(), isspace);
     }
     
     return ret;
 }
+
+
