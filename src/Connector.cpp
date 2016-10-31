@@ -11,23 +11,25 @@
 // Connector Constructor
 Connector::Connector(Command* l, Command* r):left(l), right(r) { }
 
-void Semi::exec() {
+std::string Semi::exec() {
     c->getLeft()->exec();
     if (c->getRight()) {
         c->getRight()->exec();
+        return c->getLeft()->exec() + c->getRight()->exec();
     }
+    return c->getLeft()->exec();
 }
 
-void And::exec() {
-    c->getLeft()->exec();
-    if (c->getRight()) {
-        c->getRight()->exec();
+std::string And::exec() {
+    if (c->getLeft()->exec().size()>0 && c->getRight()->exec().size()>0) {
+        return c->getLeft()->exec() + c->getRight()->exec();
     }
+    return "";
 }
 
-void Or::exec() {
-    c->getLeft()->exec();
-    if (c->getRight()) {
-        c->getRight()->exec();
+std::string Or::exec() {
+    if (c->getLeft()->exec().size()>0 || c->getLeft()->exec().size()>0) {
+        return c->getLeft()->exec() + c->getRight()->exec();
     }
+    return "";
 }

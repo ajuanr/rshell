@@ -22,7 +22,7 @@ Cmd::Cmd(string s, vector<string> f)
 {
 }
 
-void Cmd::exec() {
+string Cmd::exec() {
         char buffer[128];
         std::string result = "";
     FILE* pipe = popen(cmd.c_str(), "r");
@@ -38,6 +38,6 @@ void Cmd::exec() {
         }
         pclose(pipe);
 //        return result;
-        cout << result << endl;
+    return result;
 //    }
 }

@@ -20,7 +20,7 @@ class Cmd: public Command {
 public:
     Cmd();
     Cmd(std::string, std::vector<std::string> = std::vector<std::string>() );
-    virtual void exec();
+    virtual std::string exec();
     virtual std::string getCmd() const {return cmd;};
     virtual std::vector<std::string> getFlags() const {return flags;};
     

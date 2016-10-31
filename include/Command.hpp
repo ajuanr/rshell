@@ -9,10 +9,13 @@
 #ifndef Command_hpp
 #define Command_hpp
 
+#include<iostream>
+#include<string>
+
 class Command {
 public:
     Command() { }
-    virtual void exec() = 0;
+    virtual std::string exec() = 0;
 private:
 };
 

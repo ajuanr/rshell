@@ -27,7 +27,7 @@ private:
 class Or: public Command {
 public:
     Or(Connector* con):c(con) {};
-    virtual void exec();
+    virtual std::string exec();
 private:
     Connector *c;
 };
@@ -35,34 +35,16 @@ private:
 class And: public Command {
 public:
     And(Connector* con):c(con) {};
-    virtual void exec();
+    virtual std::string exec();
 private:
     Connector *c;
 };
 
-//
-//class Or: public Command {
-//public:
-//    Or();
-//    virtual void exec();
-//private:
-//    Command *left;
-//    Command *right;
-//};
-
-//class And: public Command {
-//public:
-//    And();
-//    virtual void exec() { left->exec(); right->exec();};
-//private:
-//    Command *left;
-//    Command *right;
-//};
 
 class Semi: public Command {
 public:
     Semi(Connector* con):c(con) {};
-    virtual void exec(); 
+    virtual std::string exec();
 private:
     Connector *c;
 };

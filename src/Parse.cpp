@@ -60,6 +60,6 @@ Command* Parse::createConnector(char c, Connector *connector) {
 
 void Parse::exec() {
     for(int i = 0; i != mem.size(); ++i) {
-        mem.at(i)->exec();
+        cout << mem.at(i)->exec();
     }
 }
