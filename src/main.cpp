@@ -16,15 +16,25 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    Command *a = new Cmd("ls");
-    Command *b = new Cmd("echo");
-    Command *c = new Cmd("pwd");
+//    Command *a = new Cmd("ls");
+//    Command *b = new Cmd("echo");
+//    Command *c = new Cmd("pwd");
 //    c->exec();
-    Connector* s = new Connector(c);
-    Command *d = new Semi(s);
+//    Connector* e = new Connector(c);
+//    Command *d = new Semi(e);
 //    c->exec();
-    d->exec();
+//    d->exec();
 //    cout << endl;
+    
+    string s = "ls -l; pwd";
+    
+    Parse *p = new Parse(s);
+    p->exec();
+    
+//    cout << *p->findConnector(s.begin()+5,s.end() ) << endl;
+//    cout << *p->findBeg(s.begin()+6, s.end()) << endl;
+    
+    
     
     return 0;
 }

@@ -18,6 +18,16 @@ void Semi::exec() {
     }
 }
 
+void And::exec() {
+    c->getLeft()->exec();
+    if (c->getRight()) {
+        c->getRight()->exec();
+    }
+}
+
 void Or::exec() {
-    
+    c->getLeft()->exec();
+    if (c->getRight()) {
+        c->getRight()->exec();
+    }
 }

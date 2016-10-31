@@ -23,7 +23,6 @@ Cmd::Cmd(string s, vector<string> f)
 }
 
 void Cmd::exec() {
-    cout << "Running: " + cmd << endl;
 //    std::string exec(const char* cmd) {
         //std::cout << "You input: " << cmd << std::endl;
         char buffer[128];

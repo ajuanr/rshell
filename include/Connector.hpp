@@ -17,20 +17,38 @@ public:
     Connector(Command*, Command* c=0);
     Command* getLeft() {return left;}
     Command* getRight() {return right;}
+    void setRight(Command* Right) { this->right = Right; }
+    
 private:
     Command *left;
     Command *right;
 };
 
-//
 class Or: public Command {
 public:
-    Or();
+    Or(Connector* con):c(con) {};
     virtual void exec();
 private:
-    Command *left;
-    Command *right;
+    Connector *c;
 };
+
+class And: public Command {
+public:
+    And(Connector* con):c(con) {};
+    virtual void exec();
+private:
+    Connector *c;
+};
+
+//
+//class Or: public Command {
+//public:
+//    Or();
+//    virtual void exec();
+//private:
+//    Command *left;
+//    Command *right;
+//};
 
 //class And: public Command {
 //public:
