@@ -23,8 +23,6 @@ Cmd::Cmd(string s, vector<string> f)
 }
 
 void Cmd::exec() {
-//    std::string exec(const char* cmd) {
-        //std::cout << "You input: " << cmd << std::endl;
         char buffer[128];
         std::string result = "";
     FILE* pipe = popen(cmd.c_str(), "r");

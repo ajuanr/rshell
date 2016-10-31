@@ -16,16 +16,23 @@ Parse::Parse(string s):input(s) {
     parse(s);
 }
 
+
 void Parse::parse(string s) {
     
-    string::const_iterator beg = s.begin(), end = s.end(), i=beg;
+    cIter beg = s.begin(), end = s.end(), i=beg;
+    
+    // was a comment, ignore everything
+    if (*beg == '#') return;
     
     while (i != end) {
+        
+        // find a connector, or reach the end
         while (!isConnector(*i) && i != end) {++i;}
+        // push the command onto the vector
         if (isspace(*(i-1))) mem.push_back(new Cmd(string(beg, i-1)));
         else mem.push_back(new Cmd(string(beg, i)));
-        //mem.push_back(new Cmd(string(i, i+1)));
-        while (isConnector(*i) && i != end){++i; beg = i+1;} // go past connectors
+        //go past connectors
+        while (isConnector(*i) && i != end){++i; beg = i+1;}
     } 
 }
 
