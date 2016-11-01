@@ -33,12 +33,6 @@ public:
 private:
     std::vector<Command*> mem;
     std::string input;
-    
-    
-    
-
-    
-    
 };
 
 #endif /* Parse_hpp */

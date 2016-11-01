@@ -37,7 +37,5 @@ string Cmd::exec() {
             throw;
         }
         pclose(pipe);
-//        return result;
     return result;
-//    }
 }

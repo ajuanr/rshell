@@ -8,9 +8,7 @@
 
 /********* System Libraries ********/
 #include <iostream>
-#include <signal.h>
-#include <stdlib.h>
-#include <stdio.h>
+
 
 /********** User Libraries ********/
 #include "../include/Command.hpp"
@@ -20,25 +18,26 @@
 
 using namespace std;
 
-//void my_handler(sig_t s){
-//    if (s==SIGINT) {
-//    printf("Caught signal %d\n",s);
-//    exit(1);
-//    }
-//}
 
 int main(int argc, const char * argv[]) {
-
-    cout << ">> ";
+    /***** user info ********/
+    Cmd *user = new Cmd("whoami");
+    string loggedIn = user->exec();
+    loggedIn = string(loggedIn.begin(), loggedIn.end()-1); // remove newline
+    Cmd *host = new Cmd("hostName");
+    string hostName=host->exec();
+    hostName = string(hostName.begin(), hostName.end()-1);
+    string input =  loggedIn + "@" + hostName + "$ ";
+    
+    cout << input;
+    /******** input *********/
     string s;
     getline(cin, s);
-    //sig_t exit;
     while (s!="exit") {
         Parse *p = new Parse(s);
         p->exec();
-        cout << " >> ";
+        cout << input;
         getline(cin, s);
-        //my_handler(exit);
     }
 
     
