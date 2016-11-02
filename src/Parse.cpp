@@ -8,9 +8,9 @@
 
 #include <stdio.h>
 
-#include "Parse.hpp"
-#include "Connector.hpp"
-#include "Cmd.hpp"
+#include "../header/Parse.hpp"
+#include "../header/Connector.hpp"
+#include "../header/Cmd.hpp"
 
 using namespace std;
 
