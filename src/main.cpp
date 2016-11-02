@@ -30,6 +30,7 @@ int main(int argc, const char * argv[]) {
     string input =  loggedIn + "@" + hostName + "$ ";
     
     cout << input;
+    
     /******** input *********/
     string s;
     getline(cin, s);

@@ -8,7 +8,6 @@
 
 #include "../header/Connector.hpp"
 
-// Connector Constructor
 Connector::Connector(Command* l, Command* r):left(l), right(r) { }
 
 std::string Semi::exec() {

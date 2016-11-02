@@ -6,8 +6,6 @@
 //  Copyright © 2016 Juan. All rights reserved.
 //
 
-#include <stdio.h>
-
 #include "../header/Parse.hpp"
 #include "../header/Connector.hpp"
 #include "../header/Cmd.hpp"
@@ -64,13 +62,4 @@ void Parse::exec() {
     for(int i = 0; i != mem.size(); ++i) {
         cout << mem.at(i)->exec();
     }
-}
-
-char* Parse::parse2(char *s) {
-    char *ret = strtok(s, ";&|");
-    
-    for (int i = 0; ret[i] !='\0'; ++i) {
-        cout << ret[i] << " ";
-    }
-    return ret;
 }
