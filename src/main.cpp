@@ -39,10 +39,6 @@ int main(int argc, const char * argv[]) {
         cout << input;
         getline(cin, s);
     }
-
-    
-    //     s = "ls -a; echo hello && mkdir test || echo world; git status";
-    //    string s = "ls -a";
     
     return 0;
 }

@@ -23,19 +23,19 @@ Cmd::Cmd(string s, vector<string> f)
 }
 
 string Cmd::exec() {
-        char buffer[128];
-        std::string result = "";
+    char buffer[128];
+    std::string ret = "";
     FILE* pipe = popen(cmd.c_str(), "r");
         if (!pipe) throw std::runtime_error("popen() failed!");
         try {
             while (!feof(pipe)) {
                 if (fgets(buffer, 128, pipe) != NULL)
-                    result += buffer;
+                    ret += buffer;
             }
         } catch (...) {
             pclose(pipe);
             throw;
         }
         pclose(pipe);
-    return result;
+    return ret;
 }

@@ -20,6 +20,7 @@ class Parse{//: public Command {
 public:
     Parse(std::string);
     void parse(std::string);
+    char* parse2(char *s);
     void exec();
     
     typedef std::string::const_iterator cIter;
