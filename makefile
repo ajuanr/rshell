@@ -8,7 +8,6 @@ LINKER   = g++ -o
 # linking flags here
 #LFLAGS   = -Wall -I. -lm
 
-# change these to proper directories where each file should be
 SRCDIR   = src
 INCDIR	 = header
 OBJDIR   = obj
@@ -23,7 +22,6 @@ rm       = rm -f
 
 
 $(BINDIR)/$(TARGET): $(OBJECTS)
+	@mkdir -p $(@D)
 	@$(LINKER) $@ $(LFLAGS) $(OBJECTS)
 	@echo "Linking complete!"
-bin:
-	mkdir $@
