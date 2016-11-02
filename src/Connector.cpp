@@ -6,7 +6,7 @@
 //  Copyright © 2016 Juan. All rights reserved.
 //
 
-#include "../include/Connector.hpp"
+#include "../header/Connector.hpp"
 
 // Connector Constructor
 Connector::Connector(Command* l, Command* r):left(l), right(r) { }

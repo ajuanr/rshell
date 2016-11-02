@@ -11,10 +11,10 @@
 
 
 /********** User Libraries ********/
-#include "../include/Command.hpp"
-#include "../include/Cmd.hpp"
-#include "../include/Connector.hpp"
-#include "../include/Parse.hpp"
+#include "../header/Command.hpp"
+#include "../header/Cmd.hpp"
+#include "../header/Connector.hpp"
+#include "../header/Parse.hpp"
 
 using namespace std;
 

@@ -9,7 +9,7 @@
 #ifndef Connectors_hpp
 #define Connectors_hpp
 
-#include "../include/Command.hpp"
+#include "../header/Command.hpp"
 
 
 class Connector {

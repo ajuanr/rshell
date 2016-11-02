@@ -1,0 +1,4 @@
+ls -l;
+pwd
+echo "hello"
+exit

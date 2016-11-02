@@ -14,7 +14,7 @@
 #include <vector>
 
 /******* User Libraries ******/
-#include "../include/Command.hpp"
+#include "../header/Command.hpp"
 
 class Cmd: public Command {
 public:
