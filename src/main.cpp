@@ -24,7 +24,7 @@ int main(int argc, const char * argv[]) {
     Cmd *user = new Cmd("whoami");
     string loggedIn = user->exec();
     loggedIn = string(loggedIn.begin(), loggedIn.end()-1); // remove newline
-    Cmd *host = new Cmd("hostName");
+    Cmd *host = new Cmd("hostname");
     string hostName=host->exec();
     hostName = string(hostName.begin(), hostName.end()-1);
     string input =  loggedIn + "@" + hostName + "$ ";
