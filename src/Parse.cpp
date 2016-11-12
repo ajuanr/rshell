@@ -43,9 +43,3 @@ char** Parse::parse(char* line, const char* delimeter) {
     
     return ret;
 }
-
-//void Parse::print() const {
-//    for (int i = 0; i != mem.size(); ++i) {
-//        cout << mem.at(i) << endl;
-//    }
-//}
