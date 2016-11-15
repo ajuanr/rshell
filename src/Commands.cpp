@@ -47,23 +47,24 @@ int Cmd::execute() {
             exit(1);
         }
     }
-    else {                                  /* for the parent:      */
-        while (wait(&status) != pid)       /* wait for completion  */
+    else {
+        while (wait(&status) != pid)
             ;
     }
     return status;
 }
 
 Test::Test(char *file, char f): filePath(file), flag(f)  {
-    buffer = new struct stat[sizeof(struct stat)];
+    //buffer = new struct stat[sizeof(struct stat)];
 }
 
 // returns 0 upon succesful execution
 // returns 1 upon failure
 int Test::execute() {
     cout << "testing file: " << filePath << endl;
+    cout << "flag is: " << flag << endl;
     // remmove any blank spaces that might show up when using multiple commands
-    int i;
+    int i=0;
     while (filePath[i] != '\0') {
         ++i;
     }
@@ -71,6 +72,7 @@ int Test::execute() {
     
     
     bool ret = 1;
+    struct stat *buffer = new struct stat[sizeof(struct stat)];
     // file exists
     if(stat(filePath, buffer) == 0) {
         if (flag == 'e') {

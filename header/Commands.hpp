@@ -9,7 +9,7 @@
 #ifndef Commands_hpp
 #define Commands_hpp
 
-
+#include<iostream>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -37,7 +37,7 @@ public:
 private:
     char *filePath;
     char flag;
-    struct stat *buffer;
+    //struct stat *buffer;
 };
 
 #endif /* Commands_hpp */
