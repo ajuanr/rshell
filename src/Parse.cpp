@@ -6,10 +6,7 @@
 //  Copyright © 2016 Juan Ruiz. All rights reserved.
 //
 
-#include "Parse.hpp"
-#include <iostream>
-
-using std::cout;    using std::endl;
+#include "../header/Parse.hpp"
 
 // further parses the input and return a char** that can be used with execvp
 char** Parse::parse(char* line, const char* delim) {

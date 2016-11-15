@@ -10,9 +10,9 @@
 #include <unistd.h>
 #include <stdio.h>
 
-#include "Parse.hpp"
-#include "Commands.hpp"
-#include "Connectors.hpp"
+#include "../header/Parse.hpp"
+#include "../header/Commands.hpp"
+#include "../header/Connectors.hpp"
 
 using std::cout;
 using std::cin;
@@ -87,11 +87,6 @@ int main(int argc, const char * argv[]) {
             cmds.push_back(cmd);
         }
     }
-    
-//    for (int i =0; i != cmds.size(); ++i) {
-//        cmds.at(i)->execute();
-//    }
-
     
     // more connectors than commands and last connector is not ;
     // exit  due to wrong input

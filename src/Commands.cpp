@@ -6,7 +6,7 @@
 //  Copyright © 2016 Juan Ruiz. All rights reserved.
 //
 
-#include "Commands.hpp"
+#include "../header/Commands.hpp"
 #include <stdio.h>
 #include <unistd.h>
 #include <iostream>

@@ -9,7 +9,7 @@
 #ifndef Connectors_hpp
 #define Connectors_hpp
 
-#include "Commands.hpp"
+#include "../header/Commands.hpp"
 
 #include <stdio.h> // for NULL
 
