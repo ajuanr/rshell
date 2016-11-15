@@ -9,6 +9,11 @@
 #ifndef Commands_hpp
 #define Commands_hpp
 
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
 // ABC for holding individual commands
 // as well as commands composed with connectors
 class Command {
@@ -27,7 +32,12 @@ private:
 
 class Test: public Command {
 public:
-    ;
+    Test(char*, char);
+    virtual int execute();
+private:
+    char *filePath;
+    char flag;
+    struct stat *buffer;
 };
 
 #endif /* Commands_hpp */

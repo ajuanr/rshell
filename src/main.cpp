@@ -25,6 +25,8 @@ bool isConnector(char *, char *);
 bool closedProperly(char*, char, char);
 bool hasPrnth(char*);
 vector<char*> parse(char*, const char*);
+Command* parseTest(char*);
+Command* parseCommand(char*, int);
 
 void userInfo();
 
@@ -62,14 +64,23 @@ int main(int argc, const char * argv[]) {
     vector<Command*> cmds;
     for (int i = 0; i != mem.size(); ++i) {
         Parse p;
-        char **temp = p.parse(mem.at(i), "() "); // parse on whitespace
+        char **temp = p.parse(mem.at(i), "()"); // parse on whitespace
         // test if command is 'test' or using the bracket '['
-        if (strcmp(*temp, "test") == 0 || **temp == '[')
-            cout << "testing 1,2, 3\n";
-//        else {
+        // uses keyword test
+        if ( strncmp(*temp, "test", 4) == 0 ){
+            Command *testCmd = parseTest(*temp);
+            cmds.push_back(testCmd);
+        }
+        else if (**temp == '[') {
+            /****** DELETE ******/
             Command *cmd = new Cmd(temp, 100); // 100 is the buffer size
             cmds.push_back(cmd);
-//        }
+            /********************/
+        }
+        else {
+            Command *cmd = parseCommand(*temp, 100); // 100 is the buffer size
+            cmds.push_back(cmd);
+        }
     }
 
     // more connectors than commands and last connector is not ;
@@ -194,4 +205,35 @@ bool isConnector(char *c, char *connector) {
             return true;
     }
     return ret;
+}
+
+Command* parseTest(char * test) {
+    const int BUFFER = 100;
+    char **ret = new char* [BUFFER];
+    char **temp = new char* [BUFFER]; // points to the beginning
+    temp = ret;
+    char *token = strtok(test, " ");
+    *ret++ = token;
+    // only one blank left to get the token for
+    token = strtok(NULL, " ");
+    *ret++ = token;
+    token = strtok(NULL, "^");
+    *ret++=token;
+    
+    // point temp back to beginning
+    ret = temp;
+    // clean-up
+    temp = 0;
+    delete[] temp;
+
+    Command *result = new Test(ret[2], ret[1][1]);
+    
+    return result;
+}
+
+Command* parseCommand(char * cmd, int size) {
+    Parse p;
+    // parse on blank space;
+    Command *result = new Cmd(p.parse(cmd, " "), size);
+    return result;
 }

@@ -53,3 +53,47 @@ int Cmd::execute() {
     }
     return status;
 }
+
+Test::Test(char *file, char f): filePath(file), flag(f)  {
+    buffer = new struct stat[sizeof(struct stat)];
+}
+
+// returns 0 upon succesful execution
+// returns 1 upon failure
+int Test::execute() {
+    cout << "testing file: " << filePath << endl;
+    // remmove any blank spaces that might show up when using multiple commands
+    int i;
+    while (filePath[i] != '\0') {
+        ++i;
+    }
+    if (filePath[i-1] == ' ') filePath[i-1] = '\0';
+    
+    
+    bool ret = 1;
+    // file exists
+    if(stat(filePath, buffer) == 0) {
+        if (flag == 'e') {
+            cout << "correct flag\n";
+            if (S_ISREG(buffer->st_mode) || S_ISDIR(buffer->st_mode)) {
+                cout << "is a file or directory\n";
+                return 0;
+            }
+        }
+        if (S_ISREG(buffer->st_mode)) {
+            cout << "is a file\n";
+            return 0;
+        }
+        if (S_ISDIR(buffer->st_mode)) {
+            cout << "is a directory\n";
+            return 0;
+        }
+    }
+    // stat failed, print the diagnostic
+    else
+    {
+        perror(filePath);
+    }
+    cout << "returning: " << ret << endl;
+    return ret;
+}
