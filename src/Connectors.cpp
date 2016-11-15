@@ -6,7 +6,7 @@
 //  Copyright © 2016 Juan Ruiz. All rights reserved.
 //
 
-#include "Connectors.hpp"
+#include "../header/Connectors.hpp"
 
 #include <iostream>
 
