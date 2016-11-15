@@ -6,10 +6,12 @@
 //  Copyright © 2016 Juan Ruiz. All rights reserved.
 //
 
+/******* System headers ********/
 #include <iostream>
 #include <unistd.h>
 #include <stdio.h>
 
+/******* User headers ********/
 #include "../header/Parse.hpp"
 #include "../header/Commands.hpp"
 #include "../header/Connectors.hpp"
@@ -19,15 +21,7 @@ using std::cin;
 using std::endl;
 using std::vector;
 
-bool isConnector(char *c, char *connector) {
-    bool ret = false;
-    while (connector++ != NULL) {
-            if (connector == c)
-                return true;
-    }
-    return ret;
-}
-
+bool isConnector(char *, char *);
 bool closedProperly(char*, char, char);
 bool hasPrnth(char*);
 vector<char*> parse(char*, const char*);
@@ -53,54 +47,45 @@ int main(int argc, const char * argv[]) {
     char input[BUFFER]; // the input from the user
     cout << "$: ";
     cin.getline(input, BUFFER);
-    
+    while(strcmp(input, "exit") != 0) {
     // make a vector of the connectors
     vector<char> connectList = getConnectors(input);
     
-    char **parseResult;
     vector<char*> mem;
     const char* delim = "&|;";
-    cout << "input is: " << input << endl;
-
-//        parseResult = p->parse(input, );
+//    cout << "input is: " << input << endl;
     
     // parse input by closing parenthesis
     mem = parse(input, delim);
-    
-//    int size = mem.size();
-//    for (int i = 0; i != size; ++i) {
-//        mem.push_back(parse(mem.at(i)), "(");
-//        
-//    }
-    
-    //print(mem);
     
     // cmds will hold the individual commands
     vector<Command*> cmds;
     for (int i = 0; i != mem.size(); ++i) {
         Parse p;
         char **temp = p.parse(mem.at(i), "() "); // parse on whitespace
-        if (*temp == "test" || **temp=='[')
+        // test if command is 'test' or using the bracket '['
+        if (strcmp(*temp, "test") == 0 || **temp == '[')
             cout << "testing 1,2, 3\n";
-        else {
+//        else {
             Command *cmd = new Cmd(temp, 100); // 100 is the buffer size
             cmds.push_back(cmd);
-        }
+//        }
     }
-    
+
     // more connectors than commands and last connector is not ;
-    // exit  due to wrong input
-    if (connectList.size() > mem.size() &&
+    // exit due to invalid input
+    if (connectList.size() >= cmds.size() &&
         connectList.at(connectList.size()-1) != ';') {
-        cout << "error\n";
+        cout << "Invalid input\n";
         return 9;
     }
+    // done will hold the vector with the command tree
+    // which will be executed
     vector<Command*> done;
-    int index = 0;
-    for (int i = 0; i != mem.size(); ++i) {
-        //mem.at(index)->execute();
-        // for commands after the first one
-        // add it to the vector, using a connector
+    
+    for (int i = 0, index = 0; i != mem.size(); ++i) {
+        // skip the first command as it's always pushed onto the vector
+        // add the following commands to the vector, using a connector
         if (i != 0) {
             // check for the ; connector
             if ( connectList.at(i-1) == ';') {
@@ -125,17 +110,25 @@ int main(int argc, const char * argv[]) {
     // the last element will hold the complete tree
     if (!done.empty())
         done.at(done.size()-1)->execute();
+        
+        // get input for the next command
+        cout << "$: ";
+        cin.getline(input, BUFFER);
 //
+    } // end input
     return 0;
 }
 
+/******************************************************/
+/***************** Function definitions ***************/
+/******************************************************/
 // check if a char* has an ( or ) parenthesis
 // return true if it does
 bool hasPrnth(char *line) {
     bool hasP = false;
     
-    for ( ; *line != '\0'; *line++) {
-        if (*line == '(' || *line == ')')
+    for ( int i = 0; line[i] != '\0'; ++i) {
+        if (line[i] == '(' || line[i] == ')')
             hasP = true;
     }
     return hasP;
@@ -159,6 +152,8 @@ bool closedProperly(char* line, char open, char close) {
     return (opening == closing);
 }
 
+// finds the connectors(&, |, and ;) in a line
+// puts them into a vector
 vector<char> getConnectors(char * input) {
     vector<char> ret;
     // ignores ; connect since those always get executed
@@ -181,13 +176,22 @@ void userInfo() {
     ;
 }
 
-// parses the line using the delimiter and places the output in a vector
+// parses a line using the delimiter and places the output in a vector
 vector<char*> parse(char *line, const char *delim) {
     vector<char*> ret;
     Parse *p = new Parse();
     char **parseResult = p->parse(line, delim);
     for (int i = 0; i != p->getSize(); ++i) {
         ret.push_back(*parseResult++);
+    }
+    return ret;
+}
+
+bool isConnector(char *c, char *connector) {
+    bool ret = false;
+    while (connector++ != NULL) {
+        if (connector == c)
+            return true;
     }
     return ret;
 }

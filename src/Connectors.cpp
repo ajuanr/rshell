@@ -24,14 +24,13 @@ int Semi::execute() {
 
 int And::execute() {
     int ret = getLeft()->execute();
-
-    // execute failed
+    // execute failed, exit
     if (ret != 0) {
         return ret;
     }
     // execute was succesful, test next command
-    else
-        ret = getRight()->execute();
+    // and return its result
+    ret = getRight()->execute();
     // return result of second command
     return ret;
 }
@@ -40,13 +39,12 @@ int And::execute() {
 // otherwise, return result of second command
 int Or::execute() {
     int ret = getLeft()->execute();
-    // execute failed
+    // left operator was success, result returns as successful
     if (ret==0) {
         return ret;
     }
-    // execute was succesful, test next command
-    else
-        ret = getRight()->execute();
-    // return result of second command
+    // execute was unsuccesful, test next command
+    // and return its result
+    ret = getRight()->execute();
     return ret;
 }

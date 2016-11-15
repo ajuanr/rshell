@@ -17,7 +17,7 @@
 class Connector: public Command {
 public:
     Connector():left(NULL), right(NULL){ };
-    // default parameter because ; doesn't need right argument
+    // default parameter because semicolons don't need right argument
     Connector(Command* l, Command *r=0);
     Command* getLeft() {return left;};
     Command* getRight() {return right;};
@@ -35,7 +35,7 @@ public:
     virtual int execute();
 };
 
-// class implements the And(&) connector
+// class implements the And(&&) connector
 class And: public Connector {
 public:
     And(): Connector() { };
@@ -43,7 +43,7 @@ public:
     virtual int execute();
 };
 
-// class implements the And(&) connector
+// class implements the Or (||) connector
 class Or: public Connector {
 public:
     Or(): Connector() { };

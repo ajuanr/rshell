@@ -25,4 +25,9 @@ private:
     char** cmd;
 };
 
+class Test: public Command {
+public:
+    ;
+};
+
 #endif /* Commands_hpp */

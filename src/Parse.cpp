@@ -8,7 +8,7 @@
 
 #include "../header/Parse.hpp"
 
-// further parses the input and return a char** that can be used with execvp
+// parses the input and return a char** that can be used with execvp
 char** Parse::parse(char* line, const char* delim) {
     char **ret = new char* [BUFFER];
     char **temp = new char* [BUFFER]; // points to the beginning
@@ -21,7 +21,7 @@ char** Parse::parse(char* line, const char* delim) {
         ++size;
         token = strtok(NULL, delim);
     }
-    // so we know how many char* there are
+    // so we know where the end is
     *ret = NULL; // end with NULL
     
     // point temp back to beginning

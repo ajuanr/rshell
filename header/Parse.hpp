@@ -13,7 +13,7 @@
 
 class Parse {
 public:
-    Parse():size(0) { };//(char*, const char*);
+    Parse():size(0) { };
     char** parse(char*, const char*);
     void print() const;
     int getSize() const {return size;}
