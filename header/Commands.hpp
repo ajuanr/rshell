@@ -13,9 +13,10 @@
 // as well as commands composed with connectors
 class Command {
 public:
-    virtual int execute()= 0;
+    virtual int execute() = 0;
 };
 
+// this is the base class that will be executed
 class Cmd: public Command {
 public:
     Cmd(char**, int);

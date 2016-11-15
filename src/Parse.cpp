@@ -7,35 +7,27 @@
 //
 
 #include "Parse.hpp"
-//#include <iostream>
+#include <iostream>
 
-//using std::cout;    using std::endl;
-
-// Parses the input based on the delimeter and add it to a vector containg
-// the commands
-Parse::Parse(char* input, const char* delimiter) {
-    char* token = strtok(input, delimiter);
-    while (token != NULL) {
-        mem.push_back(token);
-        token = strtok(NULL, delimiter);
-    }
-}
+using std::cout;    using std::endl;
 
 // further parses the input and return a char** that can be used with execvp
-char** Parse::parse(char* line, const char* delimeter) {
+char** Parse::parse(char* line, const char* delim) {
     char **ret = new char* [BUFFER];
     char **temp = new char* [BUFFER]; // points to the beginning
     temp = ret;
-    char *token = strtok(line, delimeter);
-    int index = 0;
+    char *token = strtok(line, delim);
+    // reset the size on every parse
+    size = 0;
     while (token != NULL) {
         *ret++ = token;
-        ++index;
-        token = strtok(NULL, " ");
+        ++size;
+        token = strtok(NULL, delim);
     }
-
+    // so we know how many char* there are
     *ret = NULL; // end with NULL
     
+    // point temp back to beginning
     ret = temp;
     // clean-up
     temp = 0;

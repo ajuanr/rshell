@@ -28,9 +28,24 @@ bool isConnector(char *c, char *connector) {
     return ret;
 }
 
+bool closedProperly(char*, char, char);
+bool hasPrnth(char*);
+vector<char*> parse(char*, const char*);
+
 void userInfo();
 
 vector<char> getConnectors(char *);
+
+/**************** FOR TESTING *******************/
+template<class T>
+void print(vector<T> vec) {
+    for (typename vector<T>::const_iterator i = vec.begin(); i != vec.end(); ++i) {
+        cout << *i << endl;
+    }
+}
+/**************** FOR TESTING *******************/
+
+void completeParse();
 
 int main(int argc, const char * argv[]) {
     
@@ -39,21 +54,44 @@ int main(int argc, const char * argv[]) {
     cout << "$: ";
     cin.getline(input, BUFFER);
     
-    const char* delimit = ";&|";
-    
-    // make a vector of connectors
+    // make a vector of the connectors
     vector<char> connectList = getConnectors(input);
     
-    // parse the input, based on connectors
-    Parse *p = new Parse(input, delimit);
+    char **parseResult;
+    vector<char*> mem;
+    const char* delim = "&|;";
+    cout << "input is: " << input << endl;
 
-    // further parse the input based on whitespace
-    // vector mem will hold all the commands
-    vector<Command*> mem;
-    for (int i = 0; i != p->size(); ++i) {
-    Command *cmd = new Cmd(p->parse(p->at(i), " "), BUFFER);
-        mem.push_back(cmd);
+//        parseResult = p->parse(input, );
+    
+    // parse input by closing parenthesis
+    mem = parse(input, delim);
+    
+//    int size = mem.size();
+//    for (int i = 0; i != size; ++i) {
+//        mem.push_back(parse(mem.at(i)), "(");
+//        
+//    }
+    
+    //print(mem);
+    
+    // cmds will hold the individual commands
+    vector<Command*> cmds;
+    for (int i = 0; i != mem.size(); ++i) {
+        Parse p;
+        char **temp = p.parse(mem.at(i), "() "); // parse on whitespace
+        if (*temp == "test" || **temp=='[')
+            cout << "testing 1,2, 3\n";
+        else {
+            Command *cmd = new Cmd(temp, 100); // 100 is the buffer size
+            cmds.push_back(cmd);
+        }
     }
+    
+//    for (int i =0; i != cmds.size(); ++i) {
+//        cmds.at(i)->execute();
+//    }
+
     
     // more connectors than commands and last connector is not ;
     // exit  due to wrong input
@@ -62,7 +100,6 @@ int main(int argc, const char * argv[]) {
         cout << "error\n";
         return 9;
     }
-    
     vector<Command*> done;
     int index = 0;
     for (int i = 0; i != mem.size(); ++i) {
@@ -72,29 +109,59 @@ int main(int argc, const char * argv[]) {
         if (i != 0) {
             // check for the ; connector
             if ( connectList.at(i-1) == ';') {
-                done.push_back(new Semi(done.at(index-1), mem.at(index)));
+                done.push_back(new Semi(done.at(index-1), cmds.at(index)));
             }
             // check for &
             if (connectList.at(i-1) == '&') {
-                done.push_back(new And(done.at(index-1), mem.at(index)));
+                done.push_back(new And(done.at(index-1), cmds.at(index)));
             }
             // check for |
             if (connectList.at(i-1) == '|') {
-                done.push_back(new Or(done.at(index-1), mem.at(index)));
+                done.push_back(new Or(done.at(index-1), cmds.at(index)));
             }
             index++;
         }
         // always push back the first command
         else {
-            done.push_back(mem.at(index++));
+            done.push_back(cmds.at(index++));
         }
     } // end for loop
 
     // the last element will hold the complete tree
     if (!done.empty())
         done.at(done.size()-1)->execute();
-    
+//
     return 0;
+}
+
+// check if a char* has an ( or ) parenthesis
+// return true if it does
+bool hasPrnth(char *line) {
+    bool hasP = false;
+    
+    for ( ; *line != '\0'; *line++) {
+        if (*line == '(' || *line == ')')
+            hasP = true;
+    }
+    return hasP;
+}
+
+// returns true if all opening parenthesis have a closing parenthesis
+bool closedProperly(char* line, char open, char close) {
+    // check if every opening parentheis is closed;
+    int opening = 0;
+    int closing = 0;
+    
+    while (*line != '\0') {
+        // opening parenthesis
+        if (*line == open)
+            ++opening;
+        // closing parenthesis
+        if (*line == close)
+            ++closing;
+        ++line;
+    }
+    return (opening == closing);
 }
 
 vector<char> getConnectors(char * input) {
@@ -117,4 +184,15 @@ vector<char> getConnectors(char * input) {
 
 void userInfo() {
     ;
+}
+
+// parses the line using the delimiter and places the output in a vector
+vector<char*> parse(char *line, const char *delim) {
+    vector<char*> ret;
+    Parse *p = new Parse();
+    char **parseResult = p->parse(line, delim);
+    for (int i = 0; i != p->getSize(); ++i) {
+        ret.push_back(*parseResult++);
+    }
+    return ret;
 }

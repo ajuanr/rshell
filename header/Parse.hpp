@@ -13,15 +13,13 @@
 
 class Parse {
 public:
-    Parse(char*, const char*);
+    Parse():size(0) { };//(char*, const char*);
     char** parse(char*, const char*);
-    char* at(int i) { return mem.at(i); }
-    std::vector<char*> getVector(){return mem;}
     void print() const;
-    unsigned long size() const { return mem.size(); }
+    int getSize() const {return size;}
 private:
-    std::vector<char*> mem;
-    static const int BUFFER = 100; // maybe have this passed in at a later point
+    int size;
+    static const unsigned int BUFFER = 100; //max number of commands
 };
 
 #endif /* Parse_hpp */
