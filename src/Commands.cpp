@@ -34,7 +34,7 @@ Cmd::Cmd(char **cmd, int size) {
 int Cmd::execute() {
     pid_t pid;
     // initialize to failure
-    int status=1;
+    int *status=0;
     
     // for the child process
     if ((pid = fork()) < 0) {
@@ -50,10 +50,12 @@ int Cmd::execute() {
         }
     }
     else {
-        while (wait(&status) != pid)
+        while (wait(status) != pid)
             ;
     }
-    return status;
+    if (status == 0 )
+        return 1; // failure
+    return 0; // success
 }
 
 // Constructor where user does not input a flag, -e is the default flag
