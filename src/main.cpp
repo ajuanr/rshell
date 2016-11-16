@@ -29,9 +29,6 @@ vector<char*> parse(char*, const char*);
 Command* parseTest(char*);
 Command* parseSymbolic(char*);
 Command* parseCommand(char*, int);
-
-void userInfo();
-
 vector<char> getConnectors(char *);
 
 /**************** FOR TESTING *******************/
@@ -129,9 +126,9 @@ int main(int argc, const char * argv[]) {
     return 0;
 }
 
-/******************************************************/
-/***************** Function definitions ***************/
-/******************************************************/
+/**********************************************************************/
+/********************** Function definitions **************************/
+/**********************************************************************/
 // check if a char* has an ( or ) parenthesis
 // return true if it does
 bool hasPrnth(char *line) {
@@ -247,7 +244,6 @@ Command* parseSymbolic(char * line) {
     char *token = strtok(*parsedLine, " ");
     
     if (*token != '-') {
-        cout << token << endl;
         Command *result = new Test(token);
         return result;
     }
