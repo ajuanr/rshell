@@ -1,5 +1,0 @@
-#this will not run
-#    this will also not run
-echo "This will run" #but this will not
-ls #-l
-exit

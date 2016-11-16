@@ -1,3 +1,0 @@
-ls -l && pwd
-echo "hello" && ls
-exit

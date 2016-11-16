@@ -6,7 +6,11 @@
 //  Copyright © 2016 Juan Ruiz. All rights reserved.
 //
 
+#include <stdio.h>
+#include <string.h>
+
 #include "../header/Parse.hpp"
+
 
 // parses the input and return a char** that can be used with execvp
 char** Parse::parse(char* line, const char* delim) {
