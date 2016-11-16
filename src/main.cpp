@@ -42,8 +42,6 @@ void print(vector<T> vec) {
 }
 /**************** FOR TESTING *******************/
 
-void completeParse();
-
 int main(int argc, const char * argv[]) {
     
     const int BUFFER = 100; // large enough to hold a reasonable length command
@@ -56,7 +54,6 @@ int main(int argc, const char * argv[]) {
     
     vector<char*> mem;
     const char* delim = "&|;";
-//    cout << "input is: " << input << endl;
     
     // parse input by closing parenthesis
     mem = parse(input, delim);
@@ -182,10 +179,6 @@ vector<char> getConnectors(char * input) {
         }
     }
     return ret;
-}
-
-void userInfo() {
-    ;
 }
 
 // parses a line using the delimiter and places the output in a vector
