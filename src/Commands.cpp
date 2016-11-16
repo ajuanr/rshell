@@ -79,10 +79,11 @@ int Test::execute() {
     if (filePath[0] != '/') {
         real = realpath(filePath, NULL);
     }
-    cout << "real path is: " << real << endl;
+    bool ret = 1; // assume function call fails and return that
     
-    bool ret = 1;
-    //struct stat *buffer = new struct stat[sizeof(struct stat)];
+    // check to make sure that real now points to the real path after
+    // the function realpath resolves to an actual directory
+    if (real) {
     // file exists
     if(stat(real, buffer) == 0) {
         if (flag == 'e') {
@@ -101,10 +102,13 @@ int Test::execute() {
             }
         }
     }
-    // stat failed, print the diagnostic
+    // file does not exist
     else
     {
         perror(filePath);
+    }
+        // free the memory that realpath() reserves
+        free(real);
     }
     return ret;
 }
