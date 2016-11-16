@@ -8,6 +8,7 @@
 
 #include "../header/Commands.hpp"
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <iostream>
 
@@ -74,10 +75,16 @@ int Test::execute() {
     }
     if (filePath[i-1] == ' ') filePath[i-1] = '\0';
     
+    char * real=filePath;
+    if (filePath[0] != '/') {
+        real = realpath(filePath, NULL);
+    }
+    cout << real << endl;
+    
     bool ret = 1;
     //struct stat *buffer = new struct stat[sizeof(struct stat)];
     // file exists
-    if(stat(filePath, buffer) == 0) {
+    if(stat(real, buffer) == 0) {
         if (flag == 'e') {
             if (S_ISREG(buffer->st_mode) || S_ISDIR(buffer->st_mode)) {
                 return 0;

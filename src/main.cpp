@@ -192,6 +192,7 @@ vector<char*> parse(char *line, const char *delim) {
     return ret;
 }
 
+// return true if the char is in the connector
 bool isConnector(char *c, char *connector) {
     bool ret = false;
     while (connector++ != NULL) {
