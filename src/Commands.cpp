@@ -12,6 +12,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <iostream>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 using namespace std;
 
@@ -34,7 +36,7 @@ Cmd::Cmd(char **cmd, int size) {
 int Cmd::execute() {
     pid_t pid;
     // initialize to failure
-    int *status=0;
+    int status=1;
     
     // for the child process
     if ((pid = fork()) < 0) {
@@ -45,17 +47,15 @@ int Cmd::execute() {
     else if (pid == 0) {
         // execute the command and check if it exectuded
         if (execvp(*cmd, cmd) < 0) {
-            cout << "exec failed\n";
+            //cout << "exec failed\n";
             exit(1);
         }
     }
     else {
-        while (wait(status) != pid)
+        while (wait(&status) != pid)
             ;
     }
-    if (status == 0 )
-        return 1; // failure
-    return 0; // success
+    return status;
 }
 
 // Constructor where user does not input a flag, -e is the default flag
