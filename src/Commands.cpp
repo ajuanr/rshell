@@ -70,7 +70,6 @@ int Test::execute() {
     }
     if (filePath[i-1] == ' ') filePath[i-1] = '\0';
     
-    
     bool ret = 1;
     struct stat *buffer = new struct stat[sizeof(struct stat)];
     // file exists
