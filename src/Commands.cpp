@@ -61,8 +61,6 @@ Test::Test(char *file, char f): filePath(file), flag(f)  {
 // returns 0 upon succesful execution
 // returns 1 upon failure
 int Test::execute() {
-    cout << "testing file: " << filePath << endl;
-    cout << "flag is: " << flag << endl;
     // remmove any blank spaces that might show up when using multiple commands
     int i=0;
     while (filePath[i] != '\0') {
@@ -75,19 +73,19 @@ int Test::execute() {
     // file exists
     if(stat(filePath, buffer) == 0) {
         if (flag == 'e') {
-            cout << "correct flag\n";
             if (S_ISREG(buffer->st_mode) || S_ISDIR(buffer->st_mode)) {
-                cout << "is a file or directory\n";
                 return 0;
             }
         }
-        if (S_ISREG(buffer->st_mode)) {
-            cout << "is a file\n";
-            return 0;
+        if (flag == 'f') {
+            if (S_ISREG(buffer->st_mode)) {
+                return 0;
+            }
         }
-        if (S_ISDIR(buffer->st_mode)) {
-            cout << "is a directory\n";
-            return 0;
+        if (flag == 'd') {
+            if (S_ISDIR(buffer->st_mode)) {
+                return 0;
+            }
         }
     }
     // stat failed, print the diagnostic
@@ -95,6 +93,5 @@ int Test::execute() {
     {
         perror(filePath);
     }
-    cout << "returning: " << ret << endl;
     return ret;
 }
