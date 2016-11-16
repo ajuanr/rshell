@@ -54,8 +54,14 @@ int Cmd::execute() {
     return status;
 }
 
+// Constructor where user does not input a flag, -e is the default flag
+Test::Test(char* file): filePath(file), flag('e') {
+    buffer = new struct stat[sizeof(struct stat)];
+}
+
+// Constructor whhere user specifies a flag
 Test::Test(char *file, char f): filePath(file), flag(f)  {
-    //buffer = new struct stat[sizeof(struct stat)];
+    buffer = new struct stat[sizeof(struct stat)];
 }
 
 // returns 0 upon succesful execution
@@ -69,7 +75,7 @@ int Test::execute() {
     if (filePath[i-1] == ' ') filePath[i-1] = '\0';
     
     bool ret = 1;
-    struct stat *buffer = new struct stat[sizeof(struct stat)];
+    //struct stat *buffer = new struct stat[sizeof(struct stat)];
     // file exists
     if(stat(filePath, buffer) == 0) {
         if (flag == 'e') {

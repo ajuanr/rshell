@@ -33,11 +33,12 @@ private:
 class Test: public Command {
 public:
     Test(char*, char);
+    Test(char*);
     virtual int execute();
 private:
     char *filePath;
     char flag;
-    //struct stat *buffer;
+    struct stat *buffer;
 };
 
 #endif /* Commands_hpp */
