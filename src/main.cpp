@@ -10,7 +10,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdio.h>
-#include <string>
+#include <string.h>
 
 /******* User headers ********/
 #include "../header/Parse.hpp"
