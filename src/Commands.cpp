@@ -79,7 +79,7 @@ int Test::execute() {
     if (filePath[0] != '/') {
         real = realpath(filePath, NULL);
     }
-    cout << real << endl;
+    cout << "real path is: " << real << endl;
     
     bool ret = 1;
     //struct stat *buffer = new struct stat[sizeof(struct stat)];
