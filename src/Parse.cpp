@@ -36,7 +36,7 @@ char** Parse::parse(char* line, const char* delim) {
     
     return ret;
 }
-
+// this functions parses commands that utilize the 'test' command
 Command* Parse::parseTest(char * test) {
     const int BUFFER = 100;
     char **ret = new char* [BUFFER];
