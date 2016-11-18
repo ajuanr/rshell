@@ -1,0 +1,11 @@
+test -e /Users/juanruiz/Desktop/test_tests.txt || echo true
+test -d /Users/juanruiz/Desktop/test_tests.txt || echo false
+test -f /Users/juanruiz/Desktop/test_tests.txt || echo false
+test -e /Users/juanruiz/Desktop/test_tests.txt && echo true
+test -d /Users/juanruiz/Desktop/test_tests.txt && echo false
+test -f /Users/juanruiz/Desktop/test_tests.txt && echo false
+test /Users/juanruiz/Desktop/test_tests.txt && echo true
+test /Users/juanruiz/Desktop/test_tests.txt ||  echo true
+[ -e /Users/juanruiz/Desktop/test_tests.txt ] || echo true
+[ -e /Users/juanruiz/Desktop/test_tests.txt ]  && echo true
+[-e /Users/juanruiz/Desktop/test_tests.txt] && echo true
