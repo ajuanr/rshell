@@ -2,4 +2,6 @@ echo A && echo B || echo C && echo D
 echo A || echo B && echo C && echo D
 ((echo A || echo B) && (echo C ) || echo D
 [ file ] || echo A && echo B
+([ file ] || echo A) && echo B
+
 exit
