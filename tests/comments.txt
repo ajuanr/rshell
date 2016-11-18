@@ -3,4 +3,11 @@ echo A #&& echo B
 echo A && echo B #&& echo C
 echo A #; echo B
 echo A #|| echo B
+test -#e file || echo true
+test #-e file || echo true
+(#test -d file || echo false)
+test -f file #|| echo false
+#test file && echo true
+#test /Users/juanruiz/Git/rshell/tests || echo false
+test relativePath || # /Users/juanruiz/Git/rshell/tests
 exit
