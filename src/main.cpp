@@ -26,20 +26,9 @@ bool isConnector(char *, char *);
 bool closedProperly(char*, char, char);
 bool hasPrnth(char*);
 vector<char*> parse(char*, const char*);
-Command* parseTest(char*);
-Command* parseSymbolic(char*);
-Command* parseCommand(char*, int);
 vector<char> getConnectors(char *);
 
-/**************** FOR TESTING *******************/
-template<class T>
-void print(vector<T> vec) {
-    for (typename vector<T>::const_iterator i = vec.begin(); i != vec.end(); ++i) {
-        cout << *i << endl;
-    }
-}
-/**************** FOR TESTING *******************/
-
+/******************* MAIN **************************/
 int main(int argc, const char * argv[]) {
     
     const int BUFFER = 100; // large enough to hold a reasonable length command
@@ -64,17 +53,17 @@ int main(int argc, const char * argv[]) {
         // test if command is 'test' or using the bracket '['
         // uses keyword test
         if ( strncmp(*temp, "test", 4) == 0 ){
-            Command *testCmd = parseTest(*temp);
+            Command *testCmd = p.parseTest(*temp);
             cmds.push_back(testCmd);
         }
         else if (**temp == '[') {
             /****** DELETE ******/
-            Command *testCmd = parseSymbolic(*temp);
+            Command *testCmd = p.parseSymbolic(*temp);
             cmds.push_back(testCmd);
             /********************/
         }
         else {
-            Command *cmd = parseCommand(*temp, 100); // 100 is the buffer size
+            Command *cmd = p.parseCommand(*temp, 100); // 100 is the buffer size
             cmds.push_back(cmd);
         }
     }
@@ -200,76 +189,3 @@ bool isConnector(char *c, char *connector) {
     return ret;
 }
 
-Command* parseTest(char * test) {
-    const int BUFFER = 100;
-    char **ret = new char* [BUFFER];
-    char **temp = new char* [BUFFER]; // points to the beginning
-    temp = ret;
-    char *token = strtok(test, " ");
-    *ret++ = token;
-    // only one blank left to get the token for
-    token = strtok(NULL, " ");
-    
-    // the user omitted the flag
-    if (*token != '-') {
-        cout << token << endl;
-        Command *result = new Test(token);
-        return result;
-    }
-    // flag was included, continue processing
-    *ret++ = token;
-    token = strtok(NULL, "^");
-    *ret++=token;
-    
-    // point temp back to beginning
-    ret = temp;
-    // clean-up
-    temp = 0;
-    delete[] temp;
-
-    Command *result = new Test(ret[2], ret[1][1]);
-    
-    return result;
-}
-
-// this function parses the symbolic version of test
-Command* parseSymbolic(char * line) {
-    Parse p;
-    char **parsedLine = p.parse(line, "[]");
-    
-    const int BUFFER = 100;
-    char **ret = new char* [BUFFER];
-    char **temp = new char* [BUFFER]; // points to the beginning
-    temp = ret;
-    char *token = strtok(*parsedLine, " ");
-    
-    if (*token != '-') {
-        Command *result = new Test(token);
-        return result;
-    }
-    // flag was included, continue processing
-    *ret++ = token;
-    token = strtok(NULL, "^");
-    *ret++=token;
-    
-    // point temp back to beginning
-    ret = temp;
-    // clean-up
-    temp = 0;
-    delete[] temp;
-    
-    Command *result = new Test(ret[1], ret[0][1]);
-    
-    *ret++ = token;
-    // only one blank left to get the token for
-    token = strtok(NULL, " ");
-    
-    return result;
-}
-
-Command* parseCommand(char *cmd, int size) {
-    Parse p;
-    // parse on blank space;
-    Command *result = new Cmd(p.parse(cmd, " "), size);
-    return result;
-}
