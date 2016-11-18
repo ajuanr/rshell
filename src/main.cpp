@@ -188,4 +188,3 @@ bool isConnector(char *c, char *connector) {
     }
     return ret;
 }
-
