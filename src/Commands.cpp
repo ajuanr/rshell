@@ -47,7 +47,6 @@ int Cmd::execute() {
     else if (pid == 0) {
         // execute the command and check if it exectuded
         if (execvp(*cmd, cmd) < 0) {
-            //cout << "exec failed\n";
             exit(1);
         }
     }
@@ -88,30 +87,35 @@ int Test::execute() {
     // the function realpath resolves to an actual directory
     if (real) {
     // file exists
-    if(stat(real, buffer) == 0) {
-        if (flag == 'e') {
-            if (S_ISREG(buffer->st_mode) || S_ISDIR(buffer->st_mode)) {
-                return 0;
+        if(stat(real, buffer) == 0) {
+            // check if file or directory
+            if (flag == 'e') {
+                if (S_ISREG(buffer->st_mode) || S_ISDIR(buffer->st_mode)) {
+                    return 0;
+                }
+            }
+            if (flag == 'f') {
+                if (S_ISREG(buffer->st_mode)) {
+                    return 0;
+                }
+            }
+            if (flag == 'd') {
+                if (S_ISDIR(buffer->st_mode)) {
+                    return 0;
+                }
             }
         }
-        if (flag == 'f') {
-            if (S_ISREG(buffer->st_mode)) {
-                return 0;
-            }
-        }
-        if (flag == 'd') {
-            if (S_ISDIR(buffer->st_mode)) {
-                return 0;
-            }
+        // file does not exist
+        else
+        {
+            perror(filePath);
         }
     }
-    // file does not exist
-    else
-    {
-        perror(filePath);
-    }
-        // free the memory that realpath() reserves
+    // check if memory was allocated
+    // free the memory that realpath() reserves
+    if (filePath[0] != '/') {
         free(real);
     }
+    
     return ret;
 }
