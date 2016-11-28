@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#include <string>
 
 /******* User headers ********/
 #include "../header/Parse.hpp"
@@ -21,6 +22,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
+using std::string;
 
 bool isConnector(char *, char *);
 bool closedProperly(char*, char, char);
@@ -33,7 +35,9 @@ int main(int argc, const char * argv[]) {
     
     const int BUFFER = 100; // large enough to hold a reasonable length command
     char input[BUFFER]; // the input from the user
-    cout << "$: ";
+    string prompt = getenv("PWD");
+    prompt += ": ";
+    cout << prompt;
     cin.getline(input, BUFFER);
     while(strcmp(input, "exit") != 0) {
     // make a vector of the connectors
@@ -108,7 +112,7 @@ int main(int argc, const char * argv[]) {
         done.at(done.size()-1)->execute();
         
         // get input for the next command
-        cout << "$: ";
+        cout << prompt;
         cin.getline(input, BUFFER);
 //
     } // end input
