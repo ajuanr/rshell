@@ -17,6 +17,7 @@
 #include "../header/Parse.hpp"
 #include "../header/Commands.hpp"
 #include "../header/Connectors.hpp"
+#include "../header/cd.hpp"
 
 using std::cout;
 using std::cin;
@@ -35,9 +36,12 @@ int main(int argc, const char * argv[]) {
     
     const int BUFFER = 100; // large enough to hold a reasonable length command
     char input[BUFFER]; // the input from the user
-    string prompt = getenv("PWD");
-    prompt += ": ";
-    cout << prompt;
+    
+    // get path information
+    CD *path = new CD();
+    path->home();
+    
+    cout << getenv("PWD") << ": ";
     cin.getline(input, BUFFER);
     while(strcmp(input, "exit") != 0) {
     // make a vector of the connectors
@@ -112,10 +116,11 @@ int main(int argc, const char * argv[]) {
         done.at(done.size()-1)->execute();
         
         // get input for the next command
-        cout << prompt;
+        cout << getenv("PWD") << ": ";
         cin.getline(input, BUFFER);
-//
     } // end input
+    
+    delete path;
     return 0;
 }
 

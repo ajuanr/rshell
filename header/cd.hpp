@@ -9,9 +9,9 @@
 #ifndef CD_hpp
 #define CD_hpp
 
-#include <stdio.h>
+#include "Commands.hpp"
 
-class CD {
+class CD: public Command {
 public:
     CD();
 //    char* getPath();
