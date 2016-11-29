@@ -70,6 +70,8 @@ int main(int argc, const char * argv[]) {
         else if (strncmp(*temp, "cd", 2) == 0) {
             Command *path = new CD("/Users/juanruiz");
             cmds.push_back(path);
+            Parse p;
+            p.parseCD(*temp);
         }
         else {
             Command *cmd = p.parseCommand(*temp, 100); // 100 is the buffer size

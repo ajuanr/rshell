@@ -21,6 +21,7 @@ public:
     Command* parseTest(char*);
     Command* parseSymbolic(char*);
     Command* parseCommand(char*, int);
+    Command* parseCD(char *);
     void print() const;
     int getSize() const {return size;}
 private:

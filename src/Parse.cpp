@@ -11,6 +11,7 @@
 
 #include "../header/Parse.hpp"
 #include "../header/Commands.hpp"
+#include "../header/cd.hpp"
 
 // parses the input and return a char** that can be used with execvp
 char** Parse::parse(char* line, const char* delim) {
@@ -107,5 +108,19 @@ Command* Parse::parseCommand(char *cmd, int size) {
     Parse p;
     // parse on blank space;
     Command *result = new Cmd(p.parse(cmd, " "), size);
+    return result;
+}
+
+Command* Parse::parseCD(char *line) {
+    Parse p;
+    char **parsedLine = p.parse(line, " ");
+    Command *result = new CD();
+    ++parsedLine;
+    if (parsedLine == ' ') {
+        std::cout << "parsed line\n";
+    }
+    
+//    std::cout << *parsedLine << std::endl;
+    
     return result;
 }
