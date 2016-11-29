@@ -15,8 +15,7 @@ class CD: public Command {
 public:
     CD();
     CD(char*);
-//    char* getPath();
-//    int setPath(char*);
+    void setPath(char*);
     void goBack();
     void home();
     virtual int execute();

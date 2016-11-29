@@ -38,10 +38,9 @@ int main(int argc, const char * argv[]) {
     char input[BUFFER]; // the input from the user
     
     // get path information
-//    CD *path = new CD();
-//    path->home();
+  //  CD *path = new CD("/Users/juanruiz");
     
-    cout << getenv("PWD") << ": ";
+    cout << getenv("PWD") << " $: ";
     cin.getline(input, BUFFER);
     while(strcmp(input, "exit") != 0) {
     // make a vector of the connectors
@@ -69,7 +68,8 @@ int main(int argc, const char * argv[]) {
             cmds.push_back(testCmd);
         }
         else if (strncmp(*temp, "cd", 2) == 0) {
-            cout << "you're trying to use cd";
+            Command *path = new CD("/Users/juanruiz");
+            cmds.push_back(path);
         }
         else {
             Command *cmd = p.parseCommand(*temp, 100); // 100 is the buffer size
@@ -117,7 +117,7 @@ int main(int argc, const char * argv[]) {
         done.at(done.size()-1)->execute();
         
         // get input for the next command
-        cout << getenv("PWD") << ": ";
+        cout << getenv("PWD") << " $: ";
         cin.getline(input, BUFFER);
     } // end input
     

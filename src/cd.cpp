@@ -18,29 +18,41 @@ CD::CD() {
     oldPath = newPath = std::getenv("PWD");
 }
 
-//char* CD::getPath() {
-//    return std::getenv("PWD");
-//}
-
 // sets the new path and updates the old path
 CD::CD(char * newPath) {
-    Test *pathCheck = new Test(newPath);
-    // path exists
-    if (!pathCheck->execute()) {
-        // try to set the new path
-        int test = setenv("PWD", newPath, 1);
-        // the new environment variable was set,
-        // update the PWD and OLDPWD path 
-        if (test) {
-            // update the old path;
-            oldPath = this->newPath;
-            setenv("OLDPWD", oldPath, 1);
-            // update the newPath;
-            this->newPath = newPath;
-        }
+    this->newPath = oldPath = newPath;
+    setPath(newPath);
+//    Test *pathCheck = new Test(newPath);
+//    // path exists
+//    if (!pathCheck->execute()) {
+//        std::cout << "path passed\n";
+//        this->newPath = oldPath = newPath;
+//        setPath(newPath);
+//    }
+//    else {
+//        perror("path does not exist");
+//    }
+}
+
+void CD::setPath(char * newPath) {
+Test *pathCheck = new Test(newPath);
+// path exists
+if (!pathCheck->execute()) {
+    // try to set the new path
+    int test = setenv("PWD", newPath, 1);
+    // the new environment variable was set,
+    // update the PWD and OLDPWD path 
+    if (test) {
+        // update the old path;
+        oldPath = this->newPath;
+        setenv("OLDPWD", oldPath, 1);
+        // update the newPath;
+        this->newPath = newPath;
     }
-    else
-        perror("path does not exist");
+}
+else
+    perror("path does not exist");
+
 }
 
 // go back to the previous path, e.g 'cd -'
@@ -56,7 +68,7 @@ void CD::goBack() {
         oldPath = newPath;
         newPath = temp;
     }
-    
+
 //    return test;
 }
 
