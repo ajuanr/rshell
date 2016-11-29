@@ -68,9 +68,9 @@ int main(int argc, const char * argv[]) {
             Command *testCmd = p.parseSymbolic(*temp);
             cmds.push_back(testCmd);
         }
-//        else if (strncmp(*temp, "cd", 2) == 0) {
-//            cout << "you're trying to use cd";
-//        }
+        else if (strncmp(*temp, "cd", 2) == 0) {
+            cout << "you're trying to use cd";
+        }
         else {
             Command *cmd = p.parseCommand(*temp, 100); // 100 is the buffer size
             cmds.push_back(cmd);

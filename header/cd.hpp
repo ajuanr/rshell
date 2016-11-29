@@ -14,10 +14,11 @@
 class CD: public Command {
 public:
     CD();
+    CD(char*);
 //    char* getPath();
-    int setPath(char*);
-    int goBack();
-    int home();
+//    int setPath(char*);
+    void goBack();
+    void home();
     virtual int execute();
 private:
     char *newPath; // the current path

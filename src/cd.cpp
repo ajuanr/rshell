@@ -13,6 +13,7 @@
 
 /************** User Libraries *************/
 #include "cd.hpp"
+#include "Commands.cpp"
 
 CD::CD() {
     oldPath = newPath = std::getenv("PWD");
@@ -23,24 +24,28 @@ CD::CD() {
 //}
 
 // sets the new path and updates the old path
-int CD::setPath(char * newPath) {
-    // try to set the new path
-    int test = setenv("PWD", newPath, 1);
-    // the new environment variable was set,
-    // update the PWD and OLDPWD path 
-    if (test) {
-        // update the old path;
-        oldPath = this->newPath;
-        setenv("OLDPWD", oldPath, 1);
-        // update the newPath;
-        this->newPath = newPath;
+CD::CD(char * newPath) {
+    Test *pathCheck = new Test(newPath);
+    // path exists
+    if (!pathCheck->execute()) {
+        // try to set the new path
+        int test = setenv("PWD", newPath, 1);
+        // the new environment variable was set,
+        // update the PWD and OLDPWD path 
+        if (test) {
+            // update the old path;
+            oldPath = this->newPath;
+            setenv("OLDPWD", oldPath, 1);
+            // update the newPath;
+            this->newPath = newPath;
+        }
     }
-    
-    return test;
+    else
+        perror("path does not exist");
 }
 
-// go back to the previous path
-int CD::goBack() {
+// go back to the previous path, e.g 'cd -'
+void CD::goBack() {
     // try to set the new path
     int test = setenv("PWD", oldPath, 1);
     // the new environment variable was set,
@@ -53,14 +58,12 @@ int CD::goBack() {
         newPath = temp;
     }
     
-    return test;
+//    return test;
 }
 
 // sets the PWD to the current path
-int CD::home() {
+void CD::home() {
     newPath = getenv("HOME");
-    return setPath(newPath);
-    
 }
 
 // execute changes the directory
