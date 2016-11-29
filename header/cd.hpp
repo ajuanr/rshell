@@ -9,17 +9,19 @@
 #ifndef CD_hpp
 #define CD_hpp
 
+#include <queue>
+
 #include "Commands.hpp"
 
 class CD: public Command {
 public:
     CD();
-    CD(char*);
     void setPath(char*);
     void goBack();
     void home();
     virtual int execute();
 private:
+    std::queue<char*> history;
     char *currentPath; // the current path
     char *oldPath; // the old path;
 };

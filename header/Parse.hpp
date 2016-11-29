@@ -13,6 +13,7 @@
 
 // forward declaration
 class Command;
+class CD;
 
 class Parse {
 public:
@@ -21,7 +22,7 @@ public:
     Command* parseTest(char*);
     Command* parseSymbolic(char*);
     Command* parseCommand(char*, int);
-    Command* parseCD(char *);
+    void parseCD(char *, CD*);
     void print() const;
     int getSize() const {return size;}
 private:

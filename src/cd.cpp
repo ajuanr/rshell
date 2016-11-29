@@ -17,15 +17,10 @@
 
 using namespace std;
 
+// default constructor
 CD::CD() {
-    currentPath = getenv("PWD");
-    oldPath = NULL;
-}
-
-// sets the new path and updates the old path
-CD::CD(char * newPath) {
-    currentPath = oldPath = newPath;
-    setPath(newPath);
+    history.push(NULL); // no previous path set
+    history.push(getenv("PWD")); // current directory
 }
 
 // swap to char*, for the goBack() function
@@ -36,27 +31,12 @@ void charSwap(char **a, char **b) {
 }
 
 void CD::setPath(char * newPath) {
-//    cout << "OLD       " << oldPath
-//    << "\nthis->new " << currentPath
-//    << "\nnewPath   " << newPath << endl;
-    Test *pathCheck = new Test(newPath);
+    Test *pathCheck = new Test(newPath,'d');
     // path exists
     if (!pathCheck->execute()) {
-        // test if the new PWD variable is set
-        // update the PWD and OLDPWD path 
-        if (!setenv("PWD", newPath, 1)) {
-            // update the old path;
-            this->oldPath = currentPath;
-            setenv("OLDPWD", newPath, 1);
-            //charSwap(&oldPath, &(this->newPath));
-            // update the newPath;
-            currentPath = newPath;
-//            this->newPath = getenv("PWD");
-//            charSwap(&(this->newPath), &newPath);
-        }
-//        cout << "\t\tOLD       " << oldPath
-//        << "\n\t\tthis->new " << currentPath
-//        << "\n\t\tnewPath   " << newPath << endl;
+        history.pop(); // remove oldest entry
+        history.push(newPath); // add the new path
+        setenv("PWD", newPath, 1); // update PWD variable
     }
     else
         perror("path does not exist");
@@ -64,12 +44,13 @@ void CD::setPath(char * newPath) {
 
 // go back to the previous path, e.g 'cd -'
 void CD::goBack() {
-//    charSwap(&oldPath, &newPath)
-    if (oldPath==NULL) {
-        cout<< "previous directory not set\n";
+    if (history.front()==NULL) {
+        perror("previous directory not set");
     }
-    else
-    setPath(oldPath);
+    else {
+        cout << "At front: " << history.front() << endl;
+        setPath(history.front());
+    }
 }
 
 // sets the PWD to the current path
@@ -79,5 +60,19 @@ void CD::home() {
 
 // execute changes the directory
 int CD::execute() {
-    return chdir(currentPath);
+    return chdir(getenv("PWD"));
 }
+
+//cout << "path exists\n";
+//// update the old path
+//charSwap(&oldPath, &currentPath);
+//charSwap(&currentPath, &newPath);
+//setenv("PWD", currentPath, 1);
+////        setenv("PWD", newPath, 1);
+////        cout << "currentPath: " << currentPath << endl;
+////        charSwap(&oldPath, &currentPath);
+////        char* temp = new char;
+////        temp = newPath;
+////        currentPath = temp;
+//cout << "\t2OLD       " << oldPath << endl;
+//cout << "\t2CURRENT   " << currentPath << endl;

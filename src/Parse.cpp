@@ -111,20 +111,18 @@ Command* Parse::parseCommand(char *cmd, int size) {
     return result;
 }
 
-Command* Parse::parseCD(char *line) {
-    CD *result = new CD();
+void Parse::parseCD(char *line, CD* result) {
     char *token = strtok(line, " ");
     token = strtok(NULL, " "); // ignore the first token, it's the cd command
     // if token is  not null, you have a dash or a path
     if (token != NULL) {
         if (*token == '-')
             result->goBack();
-        else
+        else {
             result->setPath(token);
-
+        }
     }
+    // there was a blank space
     else
         result->home();
-    
-    return result;
 }

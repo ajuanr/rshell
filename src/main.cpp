@@ -36,12 +36,11 @@ int main(int argc, const char * argv[]) {
     
     const int BUFFER = 100; // large enough to hold a reasonable length command
     char input[BUFFER]; // the input from the user
-    
-    // get path information
-  //  CD *path = new CD("/Users/juanruiz");
-    
+    CD *path = new CD();
     cout << getenv("PWD") << " $: ";
     cin.getline(input, BUFFER);
+    
+    // begin the shell
     while(strcmp(input, "exit") != 0) {
     // make a vector of the connectors
     vector<char> connectList = getConnectors(input);
@@ -68,10 +67,8 @@ int main(int argc, const char * argv[]) {
             cmds.push_back(testCmd);
         }
         else if (strncmp(*temp, "cd", 2) == 0) {
-            Command *path = p.parseCD(*temp);
+            p.parseCD(*temp, path);
             cmds.push_back(path);
-//            Parse p;
-//            p.parseCD(*temp);
         }
         else {
             Command *cmd = p.parseCommand(*temp, 100); // 100 is the buffer size
@@ -123,7 +120,6 @@ int main(int argc, const char * argv[]) {
         cin.getline(input, BUFFER);
     } // end input
     
-//    delete path;
     return 0;
 }
 
