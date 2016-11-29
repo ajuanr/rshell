@@ -35,38 +35,44 @@ CD::CD(char * newPath) {
 }
 
 void CD::setPath(char * newPath) {
-Test *pathCheck = new Test(newPath);
-// path exists
-if (!pathCheck->execute()) {
-    // try to set the new path
-    int test = setenv("PWD", newPath, 1);
-    // the new environment variable was set,
-    // update the PWD and OLDPWD path 
-    if (test) {
-        // update the old path;
-        oldPath = this->newPath;
-        setenv("OLDPWD", oldPath, 1);
-        // update the newPath;
-        this->newPath = newPath;
+    Test *pathCheck = new Test(newPath);
+    // path exists
+    if (!pathCheck->execute()) {
+        // try to set the new path
+        int test = setenv("PWD", newPath, 1);
+        // the new environment variable was set,
+        // update the PWD and OLDPWD path 
+        if (test) {
+            // update the old path;
+            oldPath = this->newPath;
+            setenv("OLDPWD", oldPath, 1);
+            // update the newPath;
+            this->newPath = newPath;
+        }
     }
-}
-else
-    perror("path does not exist");
+    else
+        perror("path does not exist");
 
+}
+
+void charSwap(char **a, char **b) {
+    char *temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
 // go back to the previous path, e.g 'cd -'
 void CD::goBack() {
+    std::cout << oldPath << " new path " << newPath << std::endl;
     // try to set the new path
     int test = setenv("PWD", oldPath, 1);
     // the new environment variable was set,
     // swap the oldPath and newPath
-    if (test) {
+    if (!test) {
         setenv("OLDPWD", newPath, 1);
         // swap the paths
-        char *temp = oldPath;
-        oldPath = newPath;
-        newPath = temp;
+        charSwap(&newPath, &oldPath);
+        std::cout << "old oldpath: " << oldPath << " new path " << newPath << std::endl;
     }
 
 //    return test;
