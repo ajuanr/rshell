@@ -17,6 +17,18 @@
 
 using namespace std;
 
+// perform a deep copy of a char* array
+char* deepCopy(char* input) {
+    char *ret = new char [100];
+    int i;
+    for (i=0; input[i] != '\0'; ++i)
+    {
+        ret[i] = input[i];
+    }
+    ret[++i] = '\0'; // add the null character
+    return ret;
+}
+
 // default constructor
 CD::CD() {
     history.push(NULL); // no previous path set
@@ -31,12 +43,13 @@ void charSwap(char **a, char **b) {
 }
 
 void CD::setPath(char * newPath) {
-    Test *pathCheck = new Test(newPath,'d');
+    char *testPath = deepCopy(newPath);
+    Test *pathCheck = new Test(testPath,'d');
     // path exists
     if (!pathCheck->execute()) {
         history.pop(); // remove oldest entry
-        history.push(newPath); // add the new path
-        setenv("PWD", newPath, 1); // update PWD variable
+        history.push(deepCopy(newPath)); // add the new path
+        setenv("PWD", deepCopy(newPath), 1); // update PWD variable
     }
     else
         perror("path does not exist");
@@ -48,7 +61,6 @@ void CD::goBack() {
         perror("previous directory not set");
     }
     else {
-        cout << "At front: " << history.front() << endl;
         setPath(history.front());
     }
 }
@@ -63,16 +75,3 @@ int CD::execute() {
     return chdir(getenv("PWD"));
 }
 
-//cout << "path exists\n";
-//// update the old path
-//charSwap(&oldPath, &currentPath);
-//charSwap(&currentPath, &newPath);
-//setenv("PWD", currentPath, 1);
-////        setenv("PWD", newPath, 1);
-////        cout << "currentPath: " << currentPath << endl;
-////        charSwap(&oldPath, &currentPath);
-////        char* temp = new char;
-////        temp = newPath;
-////        currentPath = temp;
-//cout << "\t2OLD       " << oldPath << endl;
-//cout << "\t2CURRENT   " << currentPath << endl;
