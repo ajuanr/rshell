@@ -13,7 +13,6 @@
 
 /************** User Libraries *************/
 #include "cd.hpp"
-#include "Commands.cpp"
 
 CD::CD() {
     oldPath = newPath = std::getenv("PWD");

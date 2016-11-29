@@ -38,8 +38,8 @@ int main(int argc, const char * argv[]) {
     char input[BUFFER]; // the input from the user
     
     // get path information
-    CD *path = new CD();
-    path->home();
+//    CD *path = new CD();
+//    path->home();
     
     cout << getenv("PWD") << ": ";
     cin.getline(input, BUFFER);
@@ -121,7 +121,7 @@ int main(int argc, const char * argv[]) {
         cin.getline(input, BUFFER);
     } // end input
     
-    delete path;
+//    delete path;
     return 0;
 }
 
