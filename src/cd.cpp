@@ -14,6 +14,9 @@
 /************** User Libraries *************/
 #include "cd.hpp"
 
+
+using namespace std;
+
 CD::CD() {
     oldPath = newPath = std::getenv("PWD");
 }
@@ -22,16 +25,6 @@ CD::CD() {
 CD::CD(char * newPath) {
     this->newPath = oldPath = newPath;
     setPath(newPath);
-//    Test *pathCheck = new Test(newPath);
-//    // path exists
-//    if (!pathCheck->execute()) {
-//        std::cout << "path passed\n";
-//        this->newPath = oldPath = newPath;
-//        setPath(newPath);
-//    }
-//    else {
-//        perror("path does not exist");
-//    }
 }
 
 void CD::setPath(char * newPath) {
@@ -42,7 +35,7 @@ void CD::setPath(char * newPath) {
         int test = setenv("PWD", newPath, 1);
         // the new environment variable was set,
         // update the PWD and OLDPWD path 
-        if (test) {
+        if (!test) {
             // update the old path;
             oldPath = this->newPath;
             setenv("OLDPWD", oldPath, 1);
@@ -52,9 +45,9 @@ void CD::setPath(char * newPath) {
     }
     else
         perror("path does not exist");
-
 }
 
+// swap to char*, for the goBack() function
 void charSwap(char **a, char **b) {
     char *temp = *a;
     *a = *b;
@@ -63,24 +56,11 @@ void charSwap(char **a, char **b) {
 
 // go back to the previous path, e.g 'cd -'
 void CD::goBack() {
-    std::cout << oldPath << " new path " << newPath << std::endl;
-    // try to set the new path
-    int test = setenv("PWD", oldPath, 1);
-    // the new environment variable was set,
-    // swap the oldPath and newPath
-    if (!test) {
-        setenv("OLDPWD", newPath, 1);
-        // swap the paths
-        charSwap(&newPath, &oldPath);
-        std::cout << "old oldpath: " << oldPath << " new path " << newPath << std::endl;
-    }
-
-//    return test;
+    setPath(getenv("OLDPWD"));
 }
 
 // sets the PWD to the current path
 void CD::home() {
-//    newPath = getenv("HOME");
     setPath(getenv("HOME"));
 }
 
