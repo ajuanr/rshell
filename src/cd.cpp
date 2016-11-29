@@ -74,7 +74,8 @@ void CD::goBack() {
 
 // sets the PWD to the current path
 void CD::home() {
-    newPath = getenv("HOME");
+//    newPath = getenv("HOME");
+    setPath(getenv("HOME"));
 }
 
 // execute changes the directory

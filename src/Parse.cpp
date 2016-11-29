@@ -112,15 +112,18 @@ Command* Parse::parseCommand(char *cmd, int size) {
 }
 
 Command* Parse::parseCD(char *line) {
-    Parse p;
-    char **parsedLine = p.parse(line, " ");
-    Command *result = new CD();
-    ++parsedLine;
-    if (parsedLine == ' ') {
-        std::cout << "parsed line\n";
+    CD *result = new CD();
+    char *token = strtok(line, " ");
+    token = strtok(NULL, " "); // ignore the first token, it's the cd command
+    // if token is  not null, you have a dash or a path
+    if (token != NULL) {
+    if (*token == '-')
+        result->goBack();
+    else
+        result->setPath(token);
     }
-    
-//    std::cout << *parsedLine << std::endl;
+    else
+        result->home();
     
     return result;
 }
