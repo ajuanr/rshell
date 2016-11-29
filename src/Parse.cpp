@@ -117,11 +117,11 @@ Command* Parse::parseCD(char *line) {
     token = strtok(NULL, " "); // ignore the first token, it's the cd command
     // if token is  not null, you have a dash or a path
     if (token != NULL) {
-        if (*token == '-') {
-        result->goBack();
-        }
-    else
-        result->setPath(token);
+        if (*token == '-')
+            result->goBack();
+        else
+            result->setPath(token);
+
     }
     else
         result->home();

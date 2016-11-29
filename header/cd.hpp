@@ -20,7 +20,7 @@ public:
     void home();
     virtual int execute();
 private:
-    char *newPath; // the current path
+    char *currentPath; // the current path
     char *oldPath; // the old path;
 };
 
