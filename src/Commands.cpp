@@ -91,19 +91,19 @@ int Test::execute() {
             // check if file or directory
             if (flag == 'e') {
                 if (S_ISREG(buffer->st_mode) || S_ISDIR(buffer->st_mode)) {
-                    cout << "True\n";
+                    cout << "(True)\n";
                     return 0;
                 }
             }
             if (flag == 'f') {
                 if (S_ISREG(buffer->st_mode)) {
-                    cout << "True\n";
+                    cout << "(True)\n";
                     return 0;
                 }
             }
             if (flag == 'd') {
                 if (S_ISDIR(buffer->st_mode)) {
-                    cout << "True\n";
+                    cout << "(True)\n";
                     return 0;
                 }
             }
@@ -120,7 +120,7 @@ int Test::execute() {
         free(real);
     }
 
-    if (ret == 1) cout << "False\n"; // path doesn't exist
+    if (ret == 1) cout << "(False)\n"; // path doesn't exist
     
     return ret;
 }
