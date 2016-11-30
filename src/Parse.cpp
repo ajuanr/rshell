@@ -126,3 +126,9 @@ void Parse::parseCD(char *line, CD* result) {
     else
         result->home();
 }
+
+char * Parse::getRealPath(char *line) {
+    char * result= new char;
+    
+    return result;
+}

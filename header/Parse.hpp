@@ -25,6 +25,7 @@ public:
     void parseCD(char *, CD*);
     void print() const;
     int getSize() const {return size;}
+    char* getRealPath(char *);
 private:
     int size;
     static const unsigned int BUFFER = 100; //max number of commands
