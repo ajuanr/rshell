@@ -10,6 +10,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <unistd.h>
+#include <stdio.h>
+#include <iostream>
+#include <cstdlib>
 
 /************** User Libraries *************/
 #include "../header/cd.hpp"
