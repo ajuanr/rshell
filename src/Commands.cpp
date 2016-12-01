@@ -71,7 +71,8 @@ Test::Test(char *file, char f): filePath(file), flag(f)  {
 // returns 1 upon failure
 int Test::execute() {
     // remmove any blank spaces that might show up when using multiple commands
-    char *path = strtok(deepCopy(filePath), " ");
+    char *path = strtok(filePath, " ");
+    cout << "path is: " << path << endl;
     char * real=path;
     if (path[0] != '/') {
         real = realpath(path, NULL);
@@ -112,6 +113,7 @@ int Test::execute() {
     // check if memory was allocated
     // free the memory that realpath() reserves
     if (filePath[0] != '/') {
+        real = 0;
         free(real);
     }
     
