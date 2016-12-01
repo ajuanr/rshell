@@ -72,7 +72,6 @@ Test::Test(char *file, char f): filePath(file), flag(f)  {
 int Test::execute() {
     // remmove any blank spaces that might show up when using multiple commands
     char *path = strtok(filePath, " ");
-    cout << "path is: " << path << endl;
     char * real=path;
     if (path[0] != '/') {
         real = realpath(path, NULL);

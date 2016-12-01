@@ -34,12 +34,11 @@ void charSwap(char **a, char **b) {
 }
 
 void CD::setPath(char * newPath) {
-    char *testPath = deepCopy(newPath);
-    
-    char *real= new char;
-    real = deepCopy(newPath);
-    if (testPath[0] != '/') {
-        real = realpath(testPath, NULL);
+    // remmove any blank spaces that might show up when using multiple commands
+    char *path = strtok(newPath, " ");
+    char * real=path;
+    if (path[0] != '/') {
+        real = realpath(path, NULL);
     }
     cout << "realpath is: " << real << endl;
     
