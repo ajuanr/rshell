@@ -44,6 +44,7 @@ void CD::setPath(char * newPath) {
     Test *pathCheck = new Test(real,'d');
     // path exists
     if (!pathCheck->execute()) {
+        //setenv("OLDPWD", history.front(), 1);
         history.pop(); // remove oldest entry
         history.push(deepCopy(real)); // add the new path
         setenv("PWD", deepCopy(real), 1); // update PWD variable
@@ -58,6 +59,7 @@ void CD::goBack() {
         perror("previous directory not set");
     }
     else {
+        setenv("OLDPWD", history.front(), 1);
         setPath(history.front());
     }
 }
@@ -70,6 +72,6 @@ void CD::home() {
 // execute changes the directory
 int CD::execute() {
     int ret = chdir(getenv("PWD"));
-    // ret returns -1 on failure, we need 1
+    // ret is -1 on failure, we need 1
     return (ret==0)? 0:1;
 }
