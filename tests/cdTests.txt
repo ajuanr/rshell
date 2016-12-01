@@ -1,0 +1,7 @@
+cd - 
+cd bin
+cd
+cd - && cd
+cd - && cd -
+cd - || cd <path>
+cd || echo truee
