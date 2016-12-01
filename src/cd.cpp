@@ -18,7 +18,6 @@
 /************** User Libraries *************/
 #include "../header/cd.hpp"
 
-
 using namespace std;
 
 // default constructor
@@ -41,7 +40,6 @@ void CD::setPath(char * newPath) {
     if (path[0] != '/') {
         real = realpath(path, NULL);
     }
-    cout << "realpath is: " << real << endl;
     
     Test *pathCheck = new Test(real,'d');
     // path exists
@@ -71,6 +69,7 @@ void CD::home() {
 
 // execute changes the directory
 int CD::execute() {
-    return chdir(getenv("PWD"));
+    int ret = chdir(getenv("PWD"));
+    // ret returns -1 on failure, we need 1
+    return (ret==0)? 0:1;
 }
-
