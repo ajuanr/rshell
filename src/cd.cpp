@@ -47,12 +47,18 @@ void charSwap(char **a, char **b) {
 
 void CD::setPath(char * newPath) {
     char *testPath = deepCopy(newPath);
-    Test *pathCheck = new Test(testPath,'d');
+    
+    char *real=testPath;
+    if (testPath[0] != '/') {
+        real = realpath(testPath, NULL);
+    }
+    
+    Test *pathCheck = new Test(real,'d');
     // path exists
     if (!pathCheck->execute()) {
         history.pop(); // remove oldest entry
-        history.push(deepCopy(newPath)); // add the new path
-        setenv("PWD", deepCopy(newPath), 1); // update PWD variable
+        history.push(deepCopy(real)); // add the new path
+        setenv("PWD", deepCopy(real), 1); // update PWD variable
     }
     else
         perror("path does not exist");
