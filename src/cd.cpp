@@ -37,7 +37,7 @@ void CD::setPath(char * newPath) {
     char *testPath = deepCopy(newPath);
     
     char *real= new char;
-    real = testPath;
+    real = deepCopy(newPath);
     if (testPath[0] != '/') {
         real = realpath(testPath, NULL);
     }
