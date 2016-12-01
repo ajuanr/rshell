@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <iostream>
 
 #include "../header/Parse.hpp"
 #include "../header/Commands.hpp"
@@ -47,7 +48,6 @@ Command* Parse::parseTest(char * test) {
     *ret++ = token;
     // only one blank left to get the token for
     token = strtok(NULL, " ");
-    
     // the user omitted the flag
     if (*token != '-') {
         Command *result = new Test(token);
@@ -72,14 +72,13 @@ Command* Parse::parseTest(char * test) {
 // this function parses the symbolic version of test
 Command* Parse::parseSymbolic(char * line) {
     Parse p;
-    char **parsedLine = p.parse(line, "[]");
+    char **parsedLine = p.parse(deepCopy(line), "[]");
     
     const int BUFFER = 100;
     char **ret = new char* [BUFFER];
     char **temp = new char* [BUFFER]; // points to the beginning
     temp = ret;
     char *token = strtok(*parsedLine, " ");
-    
     if (*token != '-') {
         Command *result = new Test(token);
         return result;
@@ -97,10 +96,6 @@ Command* Parse::parseSymbolic(char * line) {
     
     Command *result = new Test(ret[1], ret[0][1]);
     
-    *ret++ = token;
-    // only one blank left to get the token for
-    token = strtok(NULL, " ");
-    
     return result;
 }
 
@@ -112,7 +107,7 @@ Command* Parse::parseCommand(char *cmd, int size) {
 }
 
 void Parse::parseCD(char *line, CD* result) {
-    char *token = strtok(line, " ");
+    char *token = strtok(deepCopy(line), " ");
     token = strtok(NULL, " "); // ignore the first token, it's the cd command
     // if token is  not null, you have a dash or a path
     if (token != NULL) {

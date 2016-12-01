@@ -71,8 +71,7 @@ Test::Test(char *file, char f): filePath(file), flag(f)  {
 // returns 1 upon failure
 int Test::execute() {
     // remmove any blank spaces that might show up when using multiple commands
-    char *path = strtok(filePath, " ");
-    cout << "path is: " << path << endl;
+    char *path = strtok(deepCopy(filePath), " ");
     char * real=path;
     if (path[0] != '/') {
         real = realpath(path, NULL);
@@ -118,5 +117,17 @@ int Test::execute() {
     
     if (ret == 1) cout << "(False)\n"; // path doesn't exist
     
+    return ret;
+}
+
+// perform a deep copy of a char* array
+char* deepCopy(char* input) {
+    char *ret = new char [100];
+    int i;
+    for (i=0; input[i] != '\0'; ++i)
+    {
+        ret[i] = input[i];
+    }
+    ret[++i] = '\0'; // add the null character
     return ret;
 }

@@ -20,18 +20,6 @@
 
 using namespace std;
 
-// perform a deep copy of a char* array
-char* deepCopy(char* input) {
-    char *ret = new char [100];
-    int i;
-    for (i=0; input[i] != '\0'; ++i)
-    {
-        ret[i] = input[i];
-    }
-    ret[++i] = '\0'; // add the null character
-    return ret;
-}
-
 // default constructor
 CD::CD() {
     history.push(NULL); // no previous path set
@@ -48,10 +36,12 @@ void charSwap(char **a, char **b) {
 void CD::setPath(char * newPath) {
     char *testPath = deepCopy(newPath);
     
-    char *real=testPath;
+    char *real= new char;
+    real = testPath;
     if (testPath[0] != '/') {
         real = realpath(testPath, NULL);
     }
+    cout << "realpath is: " << real << endl;
     
     Test *pathCheck = new Test(real,'d');
     // path exists
