@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <cstdlib>
+#include <string.h>
 
 /************** User Libraries *************/
 #include "../header/cd.hpp"
