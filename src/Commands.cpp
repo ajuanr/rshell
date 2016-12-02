@@ -118,8 +118,6 @@ int Test::execute() {
 
     if (ret == 1) cout << "(False)\n"; // path doesn't exist
     
-    if (ret == 1) cout << "(False)\n"; // path doesn't exist
-    
     return ret;
 }
 
