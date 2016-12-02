@@ -107,12 +107,14 @@ Command* Parse::parseCommand(char *cmd, int size) {
 }
 
 void Parse::parseCD(char *line, CD* result) {
-    char *token = strtok(deepCopy(line), " ");
+    char *tempLine = deepCopy(line);
+    char *token = strtok(tempLine, " ");
     token = strtok(NULL, " "); // ignore the first token, it's the cd command
     // if token is  not null, you have a dash or a path
     if (token != NULL) {
-        if (*token == '-')
+        if (*token == '-'){
             result->goBack();
+        }
         else {
             result->setPath(token);
         }

@@ -26,13 +26,6 @@ CD::CD() {
     history.push(getenv("PWD")); // current directory
 }
 
-// swap to char*, for the goBack() function
-void charSwap(char **a, char **b) {
-    char *temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
 void CD::setPath(char * newPath) {
     // remmove any blank spaces that might show up when using multiple commands
     char *path = strtok(newPath, " ");
@@ -40,14 +33,15 @@ void CD::setPath(char * newPath) {
     if (path[0] != '/') {
         real = realpath(path, NULL);
     }
-    
-    Test *pathCheck = new Test(real,'d');
-    // path exists
-    if (!pathCheck->execute()) {
-        //setenv("OLDPWD", history.front(), 1);
-        history.pop(); // remove oldest entry
-        history.push(deepCopy(real)); // add the new path
-        setenv("PWD", deepCopy(real), 1); // update PWD variable
+    // path evaluates to a real path
+    if (real) {
+        Test *pathCheck = new Test(real,'d');
+        // path exists
+        if (!pathCheck->execute()) {
+            history.pop(); // remove oldest entry
+            history.push(deepCopy(real)); // add the new path
+            setenv("PWD", deepCopy(real), 1); // update PWD variable
+        }
     }
     else
         perror("path does not exist");

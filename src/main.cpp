@@ -37,6 +37,8 @@ int main(int argc, const char * argv[]) {
     
     const int BUFFER = 100; // large enough to hold a reasonable length command
     char input[BUFFER]; // the input from the user
+    const char* delim = "&|;";
+    vector<char> connectList = getConnectors(input);
     CD *path = new CD();
     cout << getenv("PWD") << " $: ";
     cin.getline(input, BUFFER);
@@ -44,11 +46,7 @@ int main(int argc, const char * argv[]) {
     // begin the shell
     while(strcmp(input, "exit") != 0) {
     // make a vector of the connectors
-    vector<char> connectList = getConnectors(input);
-    
     vector<char*> mem;
-    const char* delim = "&|;";
-    
     // parse input by closing parenthesis
     mem = parse(input, delim);
     
