@@ -6,4 +6,4 @@ Some known __bugs__ for this project include:
 * using 'test' or the symbolic operators [ ] on a relative filename with spaces causes a seg fault.
 * multiple spaces between connectors causes seg faults
 * directories with spaces in the file name will cause a segfault
-
+* sometimes on the first attemp to cd or test a directory, the command will fail, but subsequent attemps at running the same command on the same directory will succeed.
