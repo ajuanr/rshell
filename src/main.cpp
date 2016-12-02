@@ -35,7 +35,7 @@ vector<char> getConnectors(char *);
 /******************* MAIN **************************/
 int main(int argc, const char * argv[]) {
     
-    const int BUFFER = 100; // large enough to hold a reasonable length command
+    const int BUFFER = 200; // large enough to hold a reasonable length command
     char input[BUFFER]; // the input from the user
     const char* delim = "&|;";
     vector<char> connectList = getConnectors(input);
@@ -70,7 +70,7 @@ int main(int argc, const char * argv[]) {
             cmds.push_back(path);
         }
         else {
-            Command *cmd = p.parseCommand(*temp, 100); // 100 is the buffer size
+            Command *cmd = p.parseCommand(*temp, BUFFER); // 100 is the buffer size
             cmds.push_back(cmd);
         }
     }
@@ -125,36 +125,6 @@ int main(int argc, const char * argv[]) {
 /**********************************************************************/
 /********************** Function definitions **************************/
 /**********************************************************************/
-// check if a char* has an ( or ) parenthesis
-// return true if it does
-bool hasPrnth(char *line) {
-    bool hasP = false;
-    
-    for ( int i = 0; line[i] != '\0'; ++i) {
-        if (line[i] == '(' || line[i] == ')')
-            hasP = true;
-    }
-    return hasP;
-}
-
-// returns true if all opening parenthesis have a closing parenthesis
-bool closedProperly(char* line, char open, char close) {
-    // check if every opening parentheis is closed;
-    int opening = 0;
-    int closing = 0;
-    
-    while (*line != '\0') {
-        // opening parenthesis
-        if (*line == open)
-            ++opening;
-        // closing parenthesis
-        if (*line == close)
-            ++closing;
-        ++line;
-    }
-    return (opening == closing);
-}
-
 // finds the connectors(&, |, and ;) in a line
 // puts them into a vector
 vector<char> getConnectors(char * input) {

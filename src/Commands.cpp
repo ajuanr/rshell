@@ -123,7 +123,7 @@ int Test::execute() {
 
 // perform a deep copy of a char* array
 char* deepCopy(char* input) {
-    char *ret = new char [100];
+    char *ret = new char [200];
     int i;
     for (i=0; input[i] != '\0'; ++i)
     {
