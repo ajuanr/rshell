@@ -41,4 +41,6 @@ private:
     struct stat *buffer;
 };
 
+char* deepCopy(char*);
+
 #endif /* Commands_hpp */

@@ -71,15 +71,10 @@ Test::Test(char *file, char f): filePath(file), flag(f)  {
 // returns 1 upon failure
 int Test::execute() {
     // remmove any blank spaces that might show up when using multiple commands
-    int i=0;
-    while (filePath[i] != '\0') {
-        ++i;
-    }
-    if (filePath[i-1] == ' ') filePath[i-1] = '\0';
-    
-    char * real=filePath;
-    if (filePath[0] != '/') {
-        real = realpath(filePath, NULL);
+    char *path = strtok(filePath, " ");
+    char * real=path;
+    if (path[0] != '/') {
+        real = realpath(path, NULL);
     }
     bool ret = 1; // assume function call fails and return that
     
@@ -117,10 +112,25 @@ int Test::execute() {
     // check if memory was allocated
     // free the memory that realpath() reserves
     if (filePath[0] != '/') {
+        real = 0;
         free(real);
     }
 
     if (ret == 1) cout << "(False)\n"; // path doesn't exist
     
+    if (ret == 1) cout << "(False)\n"; // path doesn't exist
+    
+    return ret;
+}
+
+// perform a deep copy of a char* array
+char* deepCopy(char* input) {
+    char *ret = new char [100];
+    int i;
+    for (i=0; input[i] != '\0'; ++i)
+    {
+        ret[i] = input[i];
+    }
+    ret[++i] = '\0'; // add the null character
     return ret;
 }

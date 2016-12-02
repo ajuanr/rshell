@@ -13,6 +13,7 @@
 
 // forward declaration
 class Command;
+class CD;
 
 class Parse {
 public:
@@ -21,8 +22,10 @@ public:
     Command* parseTest(char*);
     Command* parseSymbolic(char*);
     Command* parseCommand(char*, int);
+    void parseCD(char *, CD*);
     void print() const;
     int getSize() const {return size;}
+    char* getRealPath(char *);
 private:
     int size;
     static const unsigned int BUFFER = 100; //max number of commands

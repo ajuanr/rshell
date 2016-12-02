@@ -11,16 +11,20 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#include <string>
+#include <cstdlib>
 
 /******* User headers ********/
 #include "../header/Parse.hpp"
 #include "../header/Commands.hpp"
 #include "../header/Connectors.hpp"
+#include "../header/cd.hpp"
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
+using std::string;
 
 bool isConnector(char *, char *);
 bool closedProperly(char*, char, char);
@@ -33,15 +37,16 @@ int main(int argc, const char * argv[]) {
     
     const int BUFFER = 100; // large enough to hold a reasonable length command
     char input[BUFFER]; // the input from the user
-    cout << "$: ";
+    const char* delim = "&|;";
+    vector<char> connectList = getConnectors(input);
+    CD *path = new CD();
+    cout << getenv("PWD") << " $: ";
     cin.getline(input, BUFFER);
+    
+    // begin the shell
     while(strcmp(input, "exit") != 0) {
     // make a vector of the connectors
-    vector<char> connectList = getConnectors(input);
-    
     vector<char*> mem;
-    const char* delim = "&|;";
-    
     // parse input by closing parenthesis
     mem = parse(input, delim);
     
@@ -57,10 +62,12 @@ int main(int argc, const char * argv[]) {
             cmds.push_back(testCmd);
         }
         else if (**temp == '[') {
-            /****** DELETE ******/
             Command *testCmd = p.parseSymbolic(*temp);
             cmds.push_back(testCmd);
-            /********************/
+        }
+        else if (strncmp(*temp, "cd", 2) == 0) {
+            p.parseCD(*temp, path);
+            cmds.push_back(path);
         }
         else {
             Command *cmd = p.parseCommand(*temp, 100); // 100 is the buffer size
@@ -108,10 +115,10 @@ int main(int argc, const char * argv[]) {
         done.at(done.size()-1)->execute();
         
         // get input for the next command
-        cout << "$: ";
+        cout << getenv("PWD") << " $: ";
         cin.getline(input, BUFFER);
-//
     } // end input
+    
     return 0;
 }
 

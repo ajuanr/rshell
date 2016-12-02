@@ -1,0 +1,13 @@
+cd - 
+cd bin
+cd
+cd /usr/bin/
+cd -
+cd -
+cd
+cd - && cd
+cd - && cd -
+cd - || cd <path>
+cd || echo truee
+[test path] || cd /usr/bin/
+[test -d /usr/bin] && cd /usr/bin/
